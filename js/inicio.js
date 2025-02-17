@@ -39,8 +39,16 @@ document.getElementById("introducir").addEventListener("click", () => {
 document.getElementById("logout").addEventListener("click", async () => {
   await signOut(auth);
 
-    // Redireccionamos al index.html
-    location.href = "../index.html";
+    // SweetAlert2
+    Swal.fire({
+        icon: "success",
+        title: "¡Hasta pronto!",
+        text: "Has cerrado sesión correctamente",
+        confirmButtonText: "OK"
+    }).then(() => {
+        location.href = "../index.html";
+    });
+    
 });
 
 

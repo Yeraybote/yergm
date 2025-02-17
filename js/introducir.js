@@ -62,6 +62,7 @@ function agregarOActualizarMedicion(id, fecha, gimnasio, batido, descanso) {
             descanso: descanso
           });
         }
+        
       }).catch(error => {
         console.error('Error al verificar la medición:', error);
       });
@@ -76,7 +77,7 @@ function agregarOActualizarMedicion(id, fecha, gimnasio, batido, descanso) {
 
 // Función para buscar medición por fecha y email
 function buscarMedicion(fecha, email) {
-  console.log(email);
+  // console.log(email);
   const medicionesRef = ref(database, 'mediciones');
   return get(medicionesRef).then(snapshot => {
     const mediciones = snapshot.val();
@@ -102,7 +103,7 @@ document.getElementById('fecha').addEventListener('change', function () {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       const email = user.email; // Aquí ya tenemos el email garantizado
-      console.log("Usuario autenticado:", email);
+      // console.log("Usuario autenticado:", email);
 
       if (fechaSeleccionada && email) {
         // Buscar la medición en la base de datos
@@ -146,8 +147,12 @@ document.getElementById('formMedicion').addEventListener('submit', function(even
   // Llamamos a la función para agregar o actualizar la medición en la base de datos
   agregarOActualizarMedicion(medicionId, fecha, gimnasio, batido, descanso);
 
-  // Mostrar mensaje de éxito
-  document.getElementById('mensaje').style.display = 'block';
+  // SweetAlert2: Mostrar mensaje de éxito
+  Swal.fire({
+    icon: "success",
+    title: "¡Éxito!",
+    text: "Medición guardada correctamente",
+  });
 
   // Limpiar el formulario
   document.getElementById('formMedicion').reset();

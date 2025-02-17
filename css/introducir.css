@@ -9,6 +9,9 @@ body, html {
     height: 100%;
     font-family: Arial, sans-serif;
     background-color: #002c49;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Contenedor principal */
@@ -19,6 +22,8 @@ body, html {
     height: 100vh;
     flex-direction: column;
     text-align: center;
+    padding: 20px;
+    width: 100%;
 }
 
 /* Estilo del contenedor con color y bordes redondeados */
@@ -27,41 +32,57 @@ body, html {
     border-radius: 15px;
     padding: 30px;
     width: 100%;
-    max-width: 600px;
+    max-width: 500px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Estilo para el logo */
 .logo-container {
-    margin-top: -50px;
+    margin-top: -30px;
     text-align: center;
-    margin-bottom: 0px; /* Espacio entre el logo y el formulario */
+    margin-bottom: 10px; /* Espacio entre el logo y el formulario */
     width: 100%;
 }
 
 .logo-container img {
-    width: 200px; /* Ajusta el tamaño del logo */
+    width: 150px; /* Ajusta el tamaño del logo */
+    max-width: 100%;
     height: auto;
     cursor: pointer;
 }
 
 /* Estilo para el formulario */
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
 button {
-    width: 250px;
-    padding: 10px;
-    margin: 10px;
+    padding: 12px;
+    margin: 10px 0;
     background-color: #002c49;
     color: white;
     border: none;
     border-radius: 5px;
     width: 100%;
     cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease;
 }
 
+button:hover {
+    background-color: #0056b3;
+}
 
 /* Estilos para los checkboxes */
 .form-check {
     display: flex;
     align-items: center;
+    justify-content: center;
     margin-bottom: 20px;
 }
 
@@ -71,10 +92,35 @@ button {
     margin-right: 10px;
 }
 
+/* Fondo azul */
 .fondo-azul {
     background-color: #002c49;
     color: white;
     padding: 10px;
     border-radius: 5px;
     margin-top: 10px;
+}
+
+/* MEDIA QUERIES para dispositivos pequeños (móviles) */
+@media (max-width: 768px) {
+    .container-custom {
+        max-width: 90%; /* Reduce el ancho en móviles */
+        padding: 20px;
+    }
+
+    .logo-container img {
+        width: 120px; /* Ajustamos el tamaño del logo en pantallas más pequeñas */
+    }
+
+    input, button {
+        font-size: 14px; /* Ajustamos el tamaño del texto */
+        padding: 10px;
+    }
+}
+
+/* MEDIA QUERIES para tablets */
+@media (max-width: 1024px) {
+    .container-custom {
+        max-width: 70%;
+    }
 }
