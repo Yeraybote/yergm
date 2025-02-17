@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mediciones</title>
+
+    <!-- Vinculamos el archivo de JavaScript externo -->
+    <script type="module" src="../js/introducir.js"></script>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap JS y Popper.js (necesarios para los componentes interactivos) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="../css/introducir-checkbox.css">
+    <link rel="stylesheet" href="../css/introducir.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="../resources/yergm.jpg" type="image/jpg">
+    
+</head>
+<body class="container d-flex justify-content-center align-items-center vh-100">
+
+    <!-- Logo centrado en la parte superior -->
+    <div class="logo-container">
+        <img id="logo" src="../resources/yergm.jpg" alt="Logo">
+    </div>
+
+    <!-- Contenedor con color y bordes redondeados -->
+    <div class="container-custom">
+        <div class="text-center">
+            <h3 class="mb-4">Mediciones</h3>
+
+            <!-- Formulario de mediciones -->
+            <form id="formMedicion">
+                <div class="mb-1">
+                    <label for="fecha" class="form-label">Fecha</label>
+                    <input type="date" id="fecha" class="form-control" required>
+                </div>
+
+                <fieldset class="checkbox-group">
+                    <div class="checkbox">
+                        <label class="checkbox-wrapper">
+                            <input type="checkbox" id="gimnasio" class="checkbox-input" />
+                            <span class="checkbox-tile fondo-azul">
+                                <span class="checkbox-icon">
+                                    <!-- Img -->
+                                     <img src="../resources/pesa.png" width="80px" height="70px" alt="Gimnasio" class="checkbox-icon">
+                                </span>
+                                <span class="checkbox-label">Gimnasio</span>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label class="checkbox-wrapper">
+                            <input type="checkbox" id="batido" class="checkbox-input" />
+                            <span class="checkbox-tile fondo-azul">
+                                <span class="checkbox-icon">
+                                    <!-- Img -->
+                                    <img src="../resources/batido-de-proteinas.png" width="70px" height="60px" style="margin-bottom: 10px;" alt="Batido" class="checkbox-icon">
+                                </span>
+                                <span class="checkbox-label">Batido</span>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label class="checkbox-wrapper">
+                            <input type="checkbox" id="descanso" class="checkbox-input" />
+                            <span class="checkbox-tile fondo-azul">
+                                <span class="checkbox-icon">
+                                    <!-- Img -->
+                                    <img src="../resources/dormido.png" width="80px" height="70px" alt="Descanso" class="checkbox-icon">
+                                </span>
+                                <span class="checkbox-label">Descanso</span>
+                            </span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <button type="submit" class="btn-custom">Guardar Medición</button>
+                
+            </form>
+
+            <!-- Mensaje de éxito -->
+            <p id="mensaje" class="mt-3 text-success" style="display:none;">¡Medición guardada correctamente!</p>
+        </div>
+    </div>
+
+</body>
+</html>

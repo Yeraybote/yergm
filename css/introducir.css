@@ -1,0 +1,80 @@
+/* Reseteo básico de márgenes y padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #002c49;
+}
+
+/* Contenedor principal */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    text-align: center;
+}
+
+/* Estilo del contenedor con color y bordes redondeados */
+.container-custom {
+    background-color: #f7b35a;
+    border-radius: 15px;
+    padding: 30px;
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Estilo para el logo */
+.logo-container {
+    margin-top: -50px;
+    text-align: center;
+    margin-bottom: 0px; /* Espacio entre el logo y el formulario */
+    width: 100%;
+}
+
+.logo-container img {
+    width: 200px; /* Ajusta el tamaño del logo */
+    height: auto;
+    cursor: pointer;
+}
+
+/* Estilo para el formulario */
+button {
+    width: 250px;
+    padding: 10px;
+    margin: 10px;
+    background-color: #002c49;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    cursor: pointer;
+}
+
+
+/* Estilos para los checkboxes */
+.form-check {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.form-check input {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.fondo-azul {
+    background-color: #002c49;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
