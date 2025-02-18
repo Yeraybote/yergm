@@ -227,6 +227,60 @@ function generarGraficoPersonal(datos) {
     });
 }
 
+async function cargarRankingGlobal() {
+    try {
+        const dbRef = ref(db, "mediciones");
+        const snapshot = await get(dbRef);
+
+        if (!snapshot.exists()) {
+            console.log("No hay datos disponibles.");
+            Swal.fire("Sin datos", "No hay estadísticas globales.", "info");
+            return;
+        }
+
+        const datos = snapshot.val();
+        let ranking = {};
+
+        // Obtener el año y mes actual
+        const year = new Date().getFullYear();
+        const month = new Date().getMonth() + 1;
+
+        // Recorrer los datos y contar entrenamientos por usuario
+        Object.values(datos).forEach((data) => {
+            if (data.gimnasio === "X") {
+                ranking[data.email] = (ranking[data.email] || 0) + 1;
+            }
+        });
+
+        // Convertir el ranking a un array y ordenarlo por entrenamientos
+        let rankingArray = Object.entries(ranking).map(([email, entrenamientos]) => ({ email, entrenamientos }));
+        rankingArray.sort((a, b) => b.entrenamientos - a.entrenamientos); // Orden descendente
+
+        // Mostrar los datos en la tabla
+        let tbody = document.getElementById("rankingTable");
+        tbody.innerHTML = ""; // Limpiar tabla antes de actualizar
+
+        rankingArray.forEach((user, index) => {
+            let row = `<tr>
+                <td>${index + 1} 🏅</td>
+                <td>${user.email}</td>
+                <td>${user.entrenamientos}</td>
+            </tr>`;
+            tbody.innerHTML += row;
+        });
+
+    } catch (error) {
+        console.error("Error al cargar el ranking:", error);
+        Swal.fire("Error", "No se pudo cargar el ranking.", "error");
+    }
+}
+
+// Llamar a la función cuando cargue la página
+document.addEventListener("DOMContentLoaded", () => {
+    cargarRankingGlobal();
+});
+
+
 
 // Al darle al logo quiero que me lleve a la página de inicio.html
 document.getElementById("logo").addEventListener("click", () => {
