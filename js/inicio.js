@@ -37,6 +37,11 @@ document.getElementById("introducir").addEventListener("click", () => {
   location.href = "./introducir.html";
 });
 
+// Al darle al botón de "estadisticas" quiero que me lleve a la página de estadisticas.html
+document.getElementById("estadisticas").addEventListener("click", () => {
+  location.href = "./estadisticas.html";
+});
+
 /* 🔹 Cerrar sesión  */
 document.getElementById("logout").addEventListener("click", async () => {
   await signOut(auth);
