@@ -19,6 +19,15 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
+// Verificar si el usuario ya inició sesión, si no, lo redirigimos a index.html
+const auth = getAuth();
+
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    location.href = "../index.html";
+  }
+});
+
 // Función para agregar o actualizar medición a la base de datos
 function agregarOActualizarMedicion(id, fecha, gimnasio, batido, descanso) {
 

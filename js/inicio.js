@@ -27,6 +27,8 @@ onAuthStateChanged(auth, (user) => {
     // Quiero solo la parte de antes del @
     let email = user.email.split("@")[0];
     document.getElementById("titulo").innerText = "¡Bienvenid@, " + email + "!";
+  } else {
+    location.href = "../index.html";
   }
 });
 
