@@ -2,6 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
 import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+import { query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
 
 // Configuración de Firebase
 const firebaseConfig = {
@@ -53,26 +54,22 @@ $(document).ready(function() {
         format: "yyyy",          // Solo muestra el año
         viewMode: "years",       // Modo solo años
         minViewMode: "years",    // Solo se puede seleccionar años
-        autoclose: true          // Cierra automáticamente el datepicker después de seleccionar el año
+        autoclose: true          // Cierra automáticamente el datepicker después de seleccionar el año       
     });
 });
 
 // Función para obtener estadísticas del usuario autenticado
 async function cargarEstadisticas(email, year, month) {
     try {
-        // De primeras vienen undefined, si es así, cogemos el año y mes actual
-        if (!year) {
-            year = new Date().getFullYear();
-        }
-
+        // Si no se recibe el año o mes, usamos los valores actuales
+        if (!year) year = new Date().getFullYear();
         if (!month) {
             month = new Date().getMonth() + 1;
-
-            // Para el mes, si es menor a 10, le añadimos un 0 delante y lo convertimos a string
             document.getElementById("filterMonth").value = month < 10 ? "0" + month.toString() : month.toString();
         }
 
-        const dbRef = ref(db, "mediciones");
+        // Hacemos la consulta a Firebase filtrando por el email
+        const dbRef = query(ref(db, "mediciones"), orderByChild("email"), equalTo(email));
         const snapshot = await get(dbRef);
 
         if (!snapshot.exists()) {
@@ -81,27 +78,26 @@ async function cargarEstadisticas(email, year, month) {
             return;
         }
 
-        const datos = snapshot.val(); // Obtener todos los registros
+        const datos = snapshot.val();
         let datosUsuario = { gimnasio: 0, batido: 0, descanso: 0 };
 
         Object.values(datos).forEach((data) => {
             console.log(data);
-            if (data.email === email) {
-                // Filtrar por año y mes (usando la fecha "yyyy-mm-dd")
-                const [dbYear, dbMonth ,day ] = data.fecha.split("-");
-                console.log(month);
-                // Si el mes es '00', es que queremos la info de todo el año
-                if (parseInt(dbYear) === parseInt(year) && parseInt(month) === 0) {
-                    if (data.gimnasio === "X") datosUsuario.gimnasio++;
-                    if (data.batido === "X") datosUsuario.batido++;
-                    if (data.descanso === "X") datosUsuario.descanso++;
-                }
 
-                if (parseInt(dbYear) === parseInt(year) && parseInt(dbMonth) === parseInt(month)) {
-                    if (data.gimnasio === "X") datosUsuario.gimnasio++;
-                    if (data.batido === "X") datosUsuario.batido++;
-                    if (data.descanso === "X") datosUsuario.descanso++;
-                }
+            // Convertimos la fecha de "yyyy-mm-dd"
+            const [dbYear, dbMonth, day] = data.fecha.split("-");
+
+            // Si el mes es '00', queremos la info de todo el año
+            if (parseInt(dbYear) === parseInt(year) && parseInt(month) === 0) {
+                if (data.gimnasio === "X") datosUsuario.gimnasio++;
+                if (data.batido === "X") datosUsuario.batido++;
+                if (data.descanso === "X") datosUsuario.descanso++;
+            }
+
+            if (parseInt(dbYear) === parseInt(year) && parseInt(dbMonth) === parseInt(month)) {
+                if (data.gimnasio === "X") datosUsuario.gimnasio++;
+                if (data.batido === "X") datosUsuario.batido++;
+                if (data.descanso === "X") datosUsuario.descanso++;
             }
         });
 
