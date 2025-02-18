@@ -87,9 +87,16 @@ async function cargarEstadisticas(email, year, month) {
         Object.values(datos).forEach((data) => {
             console.log(data);
             if (data.email === email) {
-                // Filtrar por año y mes (usando la fecha "dd-mm-yyyy")
+                // Filtrar por año y mes (usando la fecha "yyyy-mm-dd")
                 const [dbYear, dbMonth ,day ] = data.fecha.split("-");
-                console.log("Fecha: " + dbYear + year  + "-" + dbMonth);
+                console.log(month);
+                // Si el mes es '00', es que queremos la info de todo el año
+                if (parseInt(dbYear) === parseInt(year) && parseInt(month) === 0) {
+                    if (data.gimnasio === "X") datosUsuario.gimnasio++;
+                    if (data.batido === "X") datosUsuario.batido++;
+                    if (data.descanso === "X") datosUsuario.descanso++;
+                }
+
                 if (parseInt(dbYear) === parseInt(year) && parseInt(dbMonth) === parseInt(month)) {
                     if (data.gimnasio === "X") datosUsuario.gimnasio++;
                     if (data.batido === "X") datosUsuario.batido++;
@@ -115,8 +122,6 @@ $('#yearPicker').on('changeDate', function(e) {
     // Obtener el mes seleccionado
     const month = document.getElementById("filterMonth").value;
 
-    console.log("Año seleccionado: " + year + " - Mes seleccionado: " + month);
-
     // Llamar a la función cargarEstadisticas con el año y mes seleccionados
     cargarEstadisticas(email, year, month);
 });
@@ -128,8 +133,6 @@ document.getElementById("filterMonth").addEventListener("change", (e) => {
     
     // Obtener el año seleccionado
     const year = document.getElementById("yearPicker").value;
-
-    console.log("Año seleccionado: " + year + " - Mes seleccionado: " + month);
 
     // Llamar a la función cargarEstadisticas con el año y mes seleccionados
     cargarEstadisticas(email, year, month);
