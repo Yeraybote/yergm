@@ -19,12 +19,43 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-// Verificar si el usuario ya inició sesión, si no, lo redirigimos a index.html
-const auth = getAuth();
+// Quiero que de primeras me aparezca la fecha de hoy en el input de fecha y compruebe si hay una medición para esa fecha
+// Obtener la fecha actual en formato DD/MM/YYYY
+const hoy = new Date();
+const dd = String(hoy.getDate()).padStart(2, '0');
+const mm = String(hoy.getMonth() + 1).padStart(2, '0');
+const yyyy = hoy.getFullYear();
+const fechaActual = `${yyyy}-${mm}-${dd}`;
 
+// Asignar la fecha actual al input de fecha
+document.getElementById('fecha').value = fechaActual;
+
+// Comprobar si hay una medición para la fecha actual
+const auth = getAuth();
 onAuthStateChanged(auth, (user) => {
-  if (!user) {
-    location.href = "../index.html";
+  if (user) {
+    const email = user.email; // Aquí ya tenemos el email garantizado
+    // console.log("Usuario autenticado:", email);
+
+    buscarMedicion(fechaActual, email)
+      .then(medicion => {
+        if (medicion) {
+          // Si se encuentra una medición, marcamos los checkboxes correspondientes
+          document.getElementById('gimnasio').checked = medicion.gimnasio === 'X';
+          document.getElementById('batido').checked = medicion.batido === 'X';
+          document.getElementById('descanso').checked = medicion.descanso === 'X';
+        } else {
+          // Si no hay medición para esa fecha, aseguramos que los checkboxes estén desmarcados
+          document.getElementById('gimnasio').checked = false;
+          document.getElementById('batido').checked = false;
+          document.getElementById('descanso').checked = false;
+        }
+      })
+      .catch(error => {
+        console.error('Error al buscar la medición:', error);
+      });
+  } else {
+    console.log("No hay usuario autenticado.");
   }
 });
 

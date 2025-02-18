@@ -109,7 +109,7 @@ button:hover {
     }
 
     .logo-container img {
-        width: 120px; /* Ajustamos el tamaño del logo en pantallas más pequeñas */
+        width: 220px; /* Ajustamos el tamaño del logo en pantallas más pequeñas */
     }
 
     input, button {
