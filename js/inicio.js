@@ -27,6 +27,8 @@ onAuthStateChanged(auth, (user) => {
     // Quiero solo la parte de antes del @
     let email = user.email.split("@")[0];
     document.getElementById("titulo").innerText = "¡Bienvenid@, " + email + "!";
+  } else {
+    location.href = "../index.html";
   }
 });
 
@@ -35,12 +37,25 @@ document.getElementById("introducir").addEventListener("click", () => {
   location.href = "./introducir.html";
 });
 
+// Al darle al botón de "estadisticas" quiero que me lleve a la página de estadisticas.html
+document.getElementById("estadisticas").addEventListener("click", () => {
+  location.href = "./estadisticas.html";
+});
+
 /* 🔹 Cerrar sesión  */
 document.getElementById("logout").addEventListener("click", async () => {
   await signOut(auth);
 
-    // Redireccionamos al index.html
-    location.href = "../index.html";
+    // SweetAlert2
+    Swal.fire({
+        icon: "success",
+        title: "¡Hasta pronto!",
+        text: "Has cerrado sesión correctamente",
+        confirmButtonText: "OK"
+    }).then(() => {
+        location.href = "../index.html";
+    });
+    
 });
 
 

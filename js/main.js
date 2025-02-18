@@ -19,6 +19,14 @@ document.getElementById("googleLogin").addEventListener("click", async () => {
   }
 }); */
 
+// 🔹 Verificar si el usuario ya inició sesión, si eso, lo redirigimos a inicio.html
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    location.href = "views/inicio.html";
+  }
+});
+
+
 document.getElementById("emailLogin").addEventListener("click", async () => {
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();

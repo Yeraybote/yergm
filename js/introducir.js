@@ -19,6 +19,46 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
+// Quiero que de primeras me aparezca la fecha de hoy en el input de fecha y compruebe si hay una medición para esa fecha
+// Obtener la fecha actual en formato DD/MM/YYYY
+const hoy = new Date();
+const dd = String(hoy.getDate()).padStart(2, '0');
+const mm = String(hoy.getMonth() + 1).padStart(2, '0');
+const yyyy = hoy.getFullYear();
+const fechaActual = `${yyyy}-${mm}-${dd}`;
+
+// Asignar la fecha actual al input de fecha
+document.getElementById('fecha').value = fechaActual;
+
+// Comprobar si hay una medición para la fecha actual
+const auth = getAuth();
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    const email = user.email; // Aquí ya tenemos el email garantizado
+    // console.log("Usuario autenticado:", email);
+
+    buscarMedicion(fechaActual, email)
+      .then(medicion => {
+        if (medicion) {
+          // Si se encuentra una medición, marcamos los checkboxes correspondientes
+          document.getElementById('gimnasio').checked = medicion.gimnasio === 'X';
+          document.getElementById('batido').checked = medicion.batido === 'X';
+          document.getElementById('descanso').checked = medicion.descanso === 'X';
+        } else {
+          // Si no hay medición para esa fecha, aseguramos que los checkboxes estén desmarcados
+          document.getElementById('gimnasio').checked = false;
+          document.getElementById('batido').checked = false;
+          document.getElementById('descanso').checked = false;
+        }
+      })
+      .catch(error => {
+        console.error('Error al buscar la medición:', error);
+      });
+  } else {
+    console.log("No hay usuario autenticado.");
+  }
+});
+
 // Función para agregar o actualizar medición a la base de datos
 function agregarOActualizarMedicion(id, fecha, gimnasio, batido, descanso) {
 
@@ -62,6 +102,7 @@ function agregarOActualizarMedicion(id, fecha, gimnasio, batido, descanso) {
             descanso: descanso
           });
         }
+        
       }).catch(error => {
         console.error('Error al verificar la medición:', error);
       });
@@ -76,7 +117,7 @@ function agregarOActualizarMedicion(id, fecha, gimnasio, batido, descanso) {
 
 // Función para buscar medición por fecha y email
 function buscarMedicion(fecha, email) {
-  console.log(email);
+  // console.log(email);
   const medicionesRef = ref(database, 'mediciones');
   return get(medicionesRef).then(snapshot => {
     const mediciones = snapshot.val();
@@ -102,7 +143,7 @@ document.getElementById('fecha').addEventListener('change', function () {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       const email = user.email; // Aquí ya tenemos el email garantizado
-      console.log("Usuario autenticado:", email);
+      // console.log("Usuario autenticado:", email);
 
       if (fechaSeleccionada && email) {
         // Buscar la medición en la base de datos
@@ -146,8 +187,12 @@ document.getElementById('formMedicion').addEventListener('submit', function(even
   // Llamamos a la función para agregar o actualizar la medición en la base de datos
   agregarOActualizarMedicion(medicionId, fecha, gimnasio, batido, descanso);
 
-  // Mostrar mensaje de éxito
-  document.getElementById('mensaje').style.display = 'block';
+  // SweetAlert2: Mostrar mensaje de éxito
+  Swal.fire({
+    icon: "success",
+    title: "¡Éxito!",
+    text: "Medición guardada correctamente",
+  });
 
   // Limpiar el formulario
   document.getElementById('formMedicion').reset();
