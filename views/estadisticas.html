@@ -18,11 +18,23 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 
+    <!-- Bootstrap Datepicker CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+
+    <!-- jQuery (necesario para bootstrap-datepicker) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Bootstrap Datepicker JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+
+
     <link rel="stylesheet" href="../css/estadisticas.css">
 
     <!-- Favicon -->
     <link rel="icon" href="../resources/yergm.jpg" type="image/jpg">
-
 </head>
 <body>
     <div class="container p-5">
@@ -30,6 +42,7 @@
         <div class="logo-container">
             <img id="logo" src="../resources/yergm.jpg" alt="Logo YERGM" class="logo">
         </div>
+
         <ul class="nav nav-pills mb-3 border-bottom border-2" id="pills-tab" role="tablist">
           <li class="nav-item" role="presentation">
             <button class="nav-link text-light fw-semibold active position-relative" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Personales</button>
@@ -41,19 +54,55 @@
             <button class="nav-link text-light fw-semibold position-relative" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Global</button>
           </li>
         </ul>
+
         <div class="tab-content border rounded-3 border-primary p-3 text-white" id="pills-tabContent">
-          <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-            <h2 class="text-center">Tus Estadísticas</h2>
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+
+                <!-- Filtros de Año y Mes -->
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                      <label for="filterYear" class="form-label">Año</label>
+                      <input type="text" id="yearPicker" class="form-control" placeholder="Año">
+
+                      <!-- <select id="filterYear" class="form-select" onchange="cargarEstadisticas()">
+                           <option value="2025">2025</option>
+                           <option value="2026">2026</option>
+                           <option value="2027">2027</option>
+                           <option value="2028">2028</option>
+                           <option value="2029">2029</option>
+                           <option value="2030">2030</option>
+                      </select> -->
+                  </div>
+                  <div class="col-md-6">
+                      <label for="filterMonth" class="form-label">Mes</label>
+                      <select id="filterMonth" class="form-select">
+                          <!-- Opciones de meses -->
+                           <option value="00">Todos</option>
+                           <option value="01">Enero</option>
+                            <option value="02">Febrero</option>
+                            <option value="03">Marzo</option>
+                            <option value="04">Abril</option>
+                            <option value="05">Mayo</option>
+                            <option value="06">Junio</option>
+                            <option value="07">Julio</option>
+                            <option value="08">Agosto</option>
+                            <option value="09">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+                      </select>
+                  </div>
+              </div>
                 <canvas id="graficoPersonal"></canvas> <!-- Aquí se mostrará el gráfico -->
-          </div>
-          <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-            <h2>Amigos</h2>
-            <p>Please check our more design @ <a target="_blank" href="https://codepen.io/Gaurav-Rana-the-reactor">Codepen</a></p>
-          </div>
-          <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-            <h2>Global</h2>
-            <p>Please check our more design @ <a target="_blank" href="https://codepen.io/Gaurav-Rana-the-reactor">Codepen</a></p>
-          </div>
+            </div>
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                <h2>Amigos</h2>
+                <p>Please check our more design @ <a target="_blank" href="https://codepen.io/Gaurav-Rana-the-reactor">Codepen</a></p>
+            </div>
+            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                <h2>Global</h2>
+                <p>Please check our more design @ <a target="_blank" href="https://codepen.io/Gaurav-Rana-the-reactor">Codepen</a></p>
+            </div>
         </div>
     </div>
 

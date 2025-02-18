@@ -18,11 +18,13 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const auth = getAuth();
+let email;
 
 // Esperar a que el usuario inicie sesión
 onAuthStateChanged(auth, async (user) => {
     if (user) {
         // console.log("Usuario logueado:", user.email);
+        email = user.email;
         cargarEstadisticas(user.email);
     } else {
         Swal.fire({
@@ -35,15 +37,41 @@ onAuthStateChanged(auth, async (user) => {
     }
 });
 
-// Al darle al logo quiero que me lleve a la página de inicio.html
-document.getElementById("logo").addEventListener("click", () => {
-    location.href = "./inicio.html";
-}); 
+// De primeras metemos el año actual en el datepicker y el mes actual en el select
+const date = new Date();
+const year = date.getFullYear();
+const month = date.getMonth() + 1;
 
+// Para el mes, si es menor a 10, le añadimos un 0 delante y lo convertimos a string
+document.getElementById("filterMonth").value = month < 10 ? "0" + month.toString() : month.toString();
+document.getElementById("yearPicker").value = year;
+
+
+// Configuración del datepicker para seleccionar el año
+$(document).ready(function() {
+    $('#yearPicker').datepicker({
+        format: "yyyy",          // Solo muestra el año
+        viewMode: "years",       // Modo solo años
+        minViewMode: "years",    // Solo se puede seleccionar años
+        autoclose: true          // Cierra automáticamente el datepicker después de seleccionar el año
+    });
+});
 
 // Función para obtener estadísticas del usuario autenticado
-async function cargarEstadisticas(email) {
+async function cargarEstadisticas(email, year, month) {
     try {
+        // De primeras vienen undefined, si es así, cogemos el año y mes actual
+        if (!year) {
+            year = new Date().getFullYear();
+        }
+
+        if (!month) {
+            month = new Date().getMonth() + 1;
+
+            // Para el mes, si es menor a 10, le añadimos un 0 delante y lo convertimos a string
+            document.getElementById("filterMonth").value = month < 10 ? "0" + month.toString() : month.toString();
+        }
+
         const dbRef = ref(db, "mediciones");
         const snapshot = await get(dbRef);
 
@@ -54,14 +82,19 @@ async function cargarEstadisticas(email) {
         }
 
         const datos = snapshot.val(); // Obtener todos los registros
-
         let datosUsuario = { gimnasio: 0, batido: 0, descanso: 0 };
 
         Object.values(datos).forEach((data) => {
+            console.log(data);
             if (data.email === email) {
-                if (data.gimnasio === "X") datosUsuario.gimnasio++;
-                if (data.batido === "X") datosUsuario.batido++;
-                if (data.descanso === "X") datosUsuario.descanso++;
+                // Filtrar por año y mes (usando la fecha "dd-mm-yyyy")
+                const [dbYear, dbMonth ,day ] = data.fecha.split("-");
+                console.log("Fecha: " + dbYear + year  + "-" + dbMonth);
+                if (parseInt(dbYear) === parseInt(year) && parseInt(dbMonth) === parseInt(month)) {
+                    if (data.gimnasio === "X") datosUsuario.gimnasio++;
+                    if (data.batido === "X") datosUsuario.batido++;
+                    if (data.descanso === "X") datosUsuario.descanso++;
+                }
             }
         });
 
@@ -73,6 +106,35 @@ async function cargarEstadisticas(email) {
         Swal.fire("Error", "No se pudieron cargar los datos.", "error");
     }
 }
+
+// Escuchar el evento 'changeDate' cuando el año cambia
+$('#yearPicker').on('changeDate', function(e) {
+    // Obtener el año seleccionado
+    const year = e.format('yyyy');
+    
+    // Obtener el mes seleccionado
+    const month = document.getElementById("filterMonth").value;
+
+    console.log("Año seleccionado: " + year + " - Mes seleccionado: " + month);
+
+    // Llamar a la función cargarEstadisticas con el año y mes seleccionados
+    cargarEstadisticas(email, year, month);
+});
+
+// Al cambiar el mes seleccionado quiero que se muestren las estadísticas de ese mes y año
+document.getElementById("filterMonth").addEventListener("change", (e) => {
+    // Obtener el mes del select seleccionado
+    const month = e.target.value;
+    
+    // Obtener el año seleccionado
+    const year = document.getElementById("yearPicker").value;
+
+    console.log("Año seleccionado: " + year + " - Mes seleccionado: " + month);
+
+    // Llamar a la función cargarEstadisticas con el año y mes seleccionados
+    cargarEstadisticas(email, year, month);
+});
+
 
 // Función para generar el gráfico personal con tamaño adecuado y sin problemas visuales
 function generarGraficoPersonal(datos) {
@@ -165,3 +227,9 @@ function generarGraficoPersonal(datos) {
         }
     });
 }
+
+
+// Al darle al logo quiero que me lleve a la página de inicio.html
+document.getElementById("logo").addEventListener("click", () => {
+    location.href = "./inicio.html";
+}); 

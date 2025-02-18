@@ -46,3 +46,9 @@ body, html {
 
 /* Quiero que el ancho del contenido  contenido de las tabs sea el mismo para todas */
 
+/* Asegúrate de que el datepicker se muestre encima de otros elementos */
+.datepicker {
+    position: absolute;
+    top: 50px;  /* Ajusta según sea necesario */
+    left: 0;
+}
