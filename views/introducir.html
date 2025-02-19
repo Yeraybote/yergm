@@ -134,6 +134,29 @@
                 </div>
                 </div>
             </div>
+
+
+            <!-- Modal para Registrar Horas de Sueño -->
+            <div class="modal fade" id="modalDescanso" tabindex="-1" aria-labelledby="modalDescansoLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="modalDescansoLabel">Registrar Horas de Sueño</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    <label for="sliderHorasSueño">Horas de Sueño:</label>
+                    <input type="range" class="form-range" id="sliderHorasSueño" min="0" max="12" step="0.5" value="8">
+                    <p>Horas seleccionadas: <span id="horasSeleccionadas">8</span> horas</p>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="guardarHorasDescanso">Guardar</button>   
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="cerrarDescanso">Cancelar</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+            
         </div>
     </div>
 

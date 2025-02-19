@@ -29,6 +29,7 @@ const fechaActual = `${yyyy}-${mm}-${dd}`;
 
 //  Array para guardar los tipos de entrenamiento seleccionados
 let entrenamientos = [];
+let horasDescanso = 0;
 
 // Asignar la fecha actual al input de fecha
 document.getElementById('fecha').value = fechaActual;
@@ -57,6 +58,13 @@ onAuthStateChanged(auth, (user) => {
           document.getElementById('entrenamientoPierna').checked = medicion.pierna === 'X';
           document.getElementById('entrenamientoCardio').checked = medicion.cardio === 'X';
 
+          // Añadirle al slider de horas de descanso el valor de las horas de descanso
+          document.getElementById('sliderHorasSueño').value = medicion.horasDescanso;
+          document.getElementById('horasSeleccionadas').textContent = medicion.horasDescanso;
+
+          // Guardar las horas de descanso en la variable global
+          horasDescanso = medicion.horasDescanso;
+
         } else {
           // Si no hay medición para esa fecha, aseguramos que los checkboxes estén desmarcados
           document.getElementById('gimnasio').checked = false;
@@ -71,6 +79,11 @@ onAuthStateChanged(auth, (user) => {
           document.getElementById('entrenamientoBiceps').checked = false;
           document.getElementById('entrenamientoPierna').checked = false;
           document.getElementById('entrenamientoCardio').checked = false;
+
+          // Dejar el valor de horasDescanso en 8
+          horasDescanso = 8;
+          document.getElementById('sliderHorasSueño').value = 8;
+          document.getElementById('horasSeleccionadas').textContent = 8;
 
         }
       })
@@ -116,7 +129,9 @@ function agregarOActualizarMedicion(id, fecha, gimnasio, batido, descanso) {
           espalda: entrenamientos.includes("Espalda") ? "X" : "",
           biceps: entrenamientos.includes("Biceps") ? "X" : "",
           pierna: entrenamientos.includes("Pierna") ? "X" : "",
-          cardio: entrenamientos.includes("Cardio") ? "X" : ""
+          cardio: entrenamientos.includes("Cardio") ? "X" : "",
+          // Si el descanso es 'X', guardar las horas de descanso
+          horasDescanso: descanso === 'X' ? horasDescanso : 0
         };
 
         if (medicionExistente) {
@@ -184,6 +199,13 @@ document.getElementById('fecha').addEventListener('change', function () {
               document.getElementById('entrenamientoPierna').checked = medicion.pierna === 'X';
               document.getElementById('entrenamientoCardio').checked = medicion.cardio === 'X';
 
+              // Añadirle al slider de horas de descanso el valor de las horas de descanso
+              document.getElementById('sliderHorasSueño').value = medicion.horasDescanso;
+              document.getElementById('horasSeleccionadas').textContent = medicion.horasDescanso;
+
+              horasDescanso = medicion.horasDescanso;
+
+
             } else {
               // Si no hay medición para esa fecha, aseguramos que los checkboxes estén desmarcados
               document.getElementById('gimnasio').checked = false;
@@ -198,6 +220,11 @@ document.getElementById('fecha').addEventListener('change', function () {
               document.getElementById('entrenamientoBiceps').checked = false;
               document.getElementById('entrenamientoPierna').checked = false;
               document.getElementById('entrenamientoCardio').checked = false;
+
+              // Dejar el valor de horasDescanso en 8
+              horasDescanso = 8;
+              document.getElementById('sliderHorasSueño').value = 8;
+              document.getElementById('horasSeleccionadas').textContent = 8;
 
             }
           })
@@ -243,7 +270,7 @@ document.getElementById("logo").addEventListener("click", () => {
   location.href = "./inicio.html";
 });
 
-
+/*************** MODAL ENTRENAMIENTO  *********************/
 // Evento para abrir el modal al marcar el checkbox de gimnasio
 document.getElementById('gimnasio').addEventListener('click', function() {
 
@@ -315,4 +342,56 @@ document.getElementById('modalEntrenamiento').addEventListener('hidden.bs.modal'
 
   // Si al menos uno está seleccionado, marcar el checkbox de gimnasio
   document.getElementById('gimnasio').checked = entrenamientosSeleccionados.includes(true);
+});
+
+
+/*************************  HORAS DE DESCANSO *************************************** */
+
+// Evento de mostrar el modal cuando se hace clic en el checkbox de descanso
+document.getElementById('descanso').addEventListener('click', function() {
+    // Mostrar el modal para registrar las horas de sueño
+    var modal = new bootstrap.Modal(document.getElementById('modalDescanso'));
+    modal.show();
+});
+
+// Actualizar el valor de horas cuando se mueva el slider
+document.getElementById('sliderHorasSueño').addEventListener('input', function() {
+  document.getElementById('horasSeleccionadas').textContent = this.value;
+});
+
+// Guardar las horas de descanso al hacer clic en "Guardar"
+document.getElementById('guardarHorasDescanso').addEventListener('click', function() {
+  horasDescanso = document.getElementById('sliderHorasSueño').value;
+  
+  // Cerrar el modal después de guardar
+  var modal = bootstrap.Modal.getInstance(document.getElementById('modalDescanso'));
+  modal.hide();
+  
+  // Desmarcar el checkbox de descanso
+  document.getElementById('descanso').checked = true;
+});
+
+// Si al cerrar el modal, horasDescanso tiene algun valor, marcar el checkbox de descanso
+document.getElementById('modalDescanso').addEventListener('hidden.bs.modal', function() {
+  // Verificar si horasDescanso tiene un valor
+  document.getElementById('descanso').checked = horasDescanso > 0;
+});
+
+// Al darle al botón de cerrar el modal de selección de horas de descanso cerrarDescanso se cierre y se desmarque el checkbox de descanso
+document.getElementById('cerrarDescanso').addEventListener('click', function() {
+  // Cerrar el modal
+  var modal = bootstrap.Modal.getInstance(document.getElementById('modalDescanso'));
+  modal.hide();
+
+  // Dejar el valor de horasDescanso en 0
+  horasDescanso = 0;
+
+  // Ponemos el valor del slider en 8
+  document.getElementById('sliderHorasSueño').value = 8;
+
+  // Actualizar el valor de horas seleccionadas
+  document.getElementById('horasSeleccionadas').textContent = 8;
+
+  // Desmarcar el checkbox de descanso
+  document.getElementById('descanso').checked = false;
 });
