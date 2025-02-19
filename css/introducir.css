@@ -101,6 +101,106 @@ button:hover {
     margin-top: 10px;
 }
 
+/* Modal */
+.modal-content {
+    background-color: #f7b35a; /* Fondo del modal con el mismo color que el contenedor */
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    border-bottom: 1px solid #ccc;
+}
+
+.modal-header .modal-title {
+    font-size: 20px;
+    color: #002c49; /* Color de texto del título */
+    font-weight: bold;
+}
+
+.modal-header .btn-close {
+    background-color: transparent;
+    border: none;
+    color: #002c49;
+}
+
+.modal-body {
+    padding: 20px;
+    font-size: 16px;
+    color: #002c49;
+}
+
+.modal-body .form-check {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 15px;
+}
+
+.modal-body .form-check input {
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+}
+
+.modal-footer {
+    border-top: 1px solid #ccc;
+    padding: 15px;
+    text-align: right;
+}
+
+/* Botones del modal */
+.modal-footer .btn-secondary {
+    background-color: #fff;
+    color: #002c49;
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.modal-footer .btn-secondary:hover {
+    background-color: #f7b35a;
+    color: white;
+}
+
+.modal-footer .btn-primary {
+    background-color: #002c49;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 14px;
+}
+
+.modal-footer .btn-primary:hover {
+    background-color: #001a2c;
+}
+
+/* Agregar efectos de transición para los botones */
+button, .btn-secondary, .btn-primary {
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Cambiar el fondo del checkbox cuando está marcado */
+.form-check-input:checked {
+    background-color: #002c49 !important;
+    border-color: #002c49 !important;
+}
+
+/* Asegurar que el check (✔) siga siendo visible */
+.form-check-input:checked::before {
+    color: white; /* Color del icono check */
+}
+
+/* Cambiar cursor al pasar sobre el checkbox */
+.form-check-input {
+    cursor: pointer;
+}
+
+.form-check-label {
+    cursor: pointer;
+}
+
 /* MEDIA QUERIES para dispositivos pequeños (móviles) */
 @media (max-width: 768px) {
     .container-custom {
@@ -116,6 +216,13 @@ button:hover {
         font-size: 14px; /* Ajustamos el tamaño del texto */
         padding: 10px;
     }
+
+    /* El modal aparecerá centrado en la pantalla */
+    .modal-dialog {
+        max-width: 90%; /* Ajusta el ancho máximo del modal en móviles */
+        margin: 10vh auto; /* Centra el modal verticalmente */
+    }
+
 }
 
 /* MEDIA QUERIES para tablets */
@@ -123,4 +230,12 @@ button:hover {
     .container-custom {
         max-width: 70%;
     }
+
+    /* El modal aparecerá centrado en la pantalla */
+    .modal-dialog {
+        max-width: 90%; /* Ajusta el ancho máximo del modal en móviles */
+        margin: 10vh auto; /* Centra el modal verticalmente */
+    }
 }
+
+

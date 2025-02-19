@@ -87,7 +87,53 @@
                 <button type="submit" class="btn-custom">Guardar Medición</button>
                 
             </form>
-            
+
+            <!-- Modal para seleccionar el tipo de entrenamiento -->
+            <div class="modal fade" id="modalEntrenamiento" tabindex="-1" aria-labelledby="modalEntrenamientoLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="modalEntrenamientoLabel">Selecciona el tipo de entrenamiento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="cerrarModal"></button>
+                    </div>
+                    <div class="modal-body">
+                    <!-- Checkbox de tipos de entrenamiento -->
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Pecho" id="entrenamientoPecho">
+                        <label class="form-check-label" for="entrenamientoPecho">Pecho</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Hombro" id="entrenamientoHombro">
+                        <label class="form-check-label" for="entrenamientoHombro">Hombro</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Tríceps" id="entrenamientoTriceps">
+                        <label class="form-check-label" for="entrenamientoTriceps">Triceps</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Espalda" id="entrenamientoEspalda">
+                        <label class="form-check-label" for="entrenamientoEspalda">Espalda</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Biceps" id="entrenamientoBiceps">
+                        <label class="form-check-label" for="entrenamientoBiceps">Biceps</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Pierna" id="entrenamientoPierna">
+                        <label class="form-check-label" for="entrenamientoPierna">Pierna</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Cardio" id="entrenamientoCardio">
+                        <label class="form-check-label" for="entrenamientoCardio">Cardio</label>
+                    </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="guardarEntrenamiento">Guardar</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="cerrarEntrenamiento">Eliminar</button>
+                    </div>
+                </div>
+                </div>
+            </div>
         </div>
     </div>
 

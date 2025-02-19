@@ -3,6 +3,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebas
 import { getDatabase, ref, set, get, update } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import { GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
+import { query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
 
 // Tu configuración de Firebase (reemplaza con tu propia configuración)
 const firebaseConfig = {
@@ -24,13 +25,31 @@ const auth = getAuth();
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    // Quiero solo la parte de antes del @
-    let email = user.email.split("@")[0];
-    document.getElementById("titulo").innerText = "¡Bienvenid@, " + email + "!";
+    // Referencia a la base de datos de usuarios
+    const usuariosRef = ref(database, 'usuarios');
+
+    // Filtrar por el email del usuario autenticado
+    get(query(usuariosRef, orderByChild('email'), equalTo(user.email)))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const usuarios = snapshot.val();
+          const usuario = Object.values(usuarios)[0]; // Ya solo hay uno porque estamos filtrando por el email
+
+          // Mostrar la información del usuario en la interfaz
+          document.getElementById("titulo").innerText = "¡Bienvenid@, " + usuario.nombre + "!";
+        } else {
+          console.log("No se encontró el usuario.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error al obtener los datos del usuario:", error);
+      });
+
   } else {
-    location.href = "../index.html";
+    location.href = "../index.html"; // Redirige al login si no hay un usuario autenticado
   }
 });
+
 
 // Al darle al botón de "introducir" quiero que me lleve a la página de introducir.html
 document.getElementById("introducir").addEventListener("click", () => {
