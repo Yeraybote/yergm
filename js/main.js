@@ -106,17 +106,6 @@ document.getElementById("register").addEventListener("click", async () => {
 });
 
 
-/* 🔹 Cerrar sesión 
-document.getElementById("logout").addEventListener("click", async () => {
-  await signOut(auth);
-
-    // Limpiamos el LocalStorage
-    localStorage.removeItem("email");
-
-  alert("Sesión cerrada");
-}); */
-
-
 // Agregar un evento para detectar la tecla Enter en el campo de contraseña
 document.getElementById('password').addEventListener('keypress', function(event) {
     // Verificar si la tecla presionada es Enter (código de tecla 13)

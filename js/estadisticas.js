@@ -82,7 +82,7 @@ async function cargarEstadisticas(email, year, month) {
         let datosUsuario = { gimnasio: 0, batido: 0, descanso: 0 };
 
         Object.values(datos).forEach((data) => {
-            console.log(data);
+            //console.log(data);
 
             // Convertimos la fecha de "yyyy-mm-dd"
             const [dbYear, dbMonth, day] = data.fecha.split("-");
@@ -144,7 +144,7 @@ function generarGraficoPersonal(datos) {
     }
 
     // Crear un nuevo canvas para el gráfico con tamaño fijo
-    const container = document.getElementById("pills-home");
+    const container = document.getElementById("pills-personales");
     const canvas = document.createElement("canvas");
     canvas.id = "graficoPersonal";
     canvas.style.maxWidth = "400px"; // Ancho máximo

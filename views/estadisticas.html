@@ -45,33 +45,24 @@
 
         <ul class="nav nav-pills mb-3 border-bottom border-2" id="pills-tab" role="tablist">
           <li class="nav-item" role="presentation">
-            <button class="nav-link text-light fw-semibold active position-relative" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Personales</button>
+            <button class="nav-link text-light fw-semibold active position-relative" id="pills-personales-tab" data-bs-toggle="pill" data-bs-target="#pills-personales" type="button" role="tab" aria-controls="pills-personales" aria-selected="true">Personales</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link text-light fw-semibold position-relative" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Amigos</button>
+            <button class="nav-link text-light fw-semibold position-relative" id="pills-amigos-tab" data-bs-toggle="pill" data-bs-target="#pills-amigos" type="button" role="tab" aria-controls="pills-amigos" aria-selected="false">Amigos</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link text-light fw-semibold position-relative" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Global</button>
+            <button class="nav-link text-light fw-semibold position-relative" id="pills-global-tab" data-bs-toggle="pill" data-bs-target="#pills-global" type="button" role="tab" aria-controls="pills-global" aria-selected="false">Global</button>
           </li>
         </ul>
 
         <div class="tab-content border rounded-3 border-primary p-3 text-white" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <div class="tab-pane fade show active" id="pills-personales" role="tabpanel" aria-labelledby="pills-personales-tab">
 
                 <!-- Filtros de Año y Mes -->
                 <div class="row mb-3">
                   <div class="col-md-6">
                       <label for="filterYear" class="form-label">Año</label>
                       <input type="text" id="yearPicker" class="form-control anio" placeholder="Año">
-
-                      <!-- <select id="filterYear" class="form-select" onchange="cargarEstadisticas()">
-                           <option value="2025">2025</option>
-                           <option value="2026">2026</option>
-                           <option value="2027">2027</option>
-                           <option value="2028">2028</option>
-                           <option value="2029">2029</option>
-                           <option value="2030">2030</option>
-                      </select> -->
                   </div>
                   <div class="col-md-6">
                       <label for="filterMonth" class="form-label">Mes</label>
@@ -95,16 +86,14 @@
               </div>
                 <canvas id="graficoPersonal"></canvas> <!-- Aquí se mostrará el gráfico -->
             </div>
-            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div class="tab-pane fade" id="pills-amigos" role="tabpanel" aria-labelledby="pills-amigos-tab">
                 <h2>Amigos</h2>
                 <p>Se vienen cositas... 😈</p>
             </div>
-            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                <!-- <h2>Global</h2>
-                <p>Se vienen cositas... 🥵</p> -->
+            <div class="tab-pane fade" id="pills-global" role="tabpanel" aria-labelledby="pills-global-tab">
                 <h2 class="text-center mb-2 pb-2">Ranking Global 🏅</h2>
                 <div class="table-responsive">
-                    <table class="table table-dark table-striped table-hover text-center">
+                    <table class="table table-dark table-striped table-hover text-center table-sm text-nowrap">
                         <thead>
                             <tr>
                                 <th>Puesto</th>

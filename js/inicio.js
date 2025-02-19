@@ -42,20 +42,22 @@ document.getElementById("estadisticas").addEventListener("click", () => {
   location.href = "./estadisticas.html";
 });
 
-/* 🔹 Cerrar sesión  */
+/* 🔹 Cerrar sesión con confirmación */
 document.getElementById("logout").addEventListener("click", async () => {
-  await signOut(auth);
-
-    // SweetAlert2
-    Swal.fire({
-        icon: "success",
-        title: "¡Hasta pronto!",
-        text: "Has cerrado sesión correctamente",
-        confirmButtonText: "OK"
-    }).then(() => {
-        location.href = "../index.html";
-    });
-    
+  Swal.fire({
+      title: "¿Seguro que quieres cerrar sesión?",
+      text: "Tendrás que volver a iniciar sesión para acceder de nuevo.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Sí, salir",
+      cancelButtonText: "Cancelar"
+  }).then(async (result) => {
+      if (result.isConfirmed) {
+          await signOut(auth);
+      }
+  });
 });
 
 
