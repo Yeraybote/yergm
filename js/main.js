@@ -2,11 +2,6 @@ import { auth } from "./firebase.js";
 import { GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 
-// import Swal from 'sweetalert2'
-
-// or via CommonJS
-//const Swal = require('sweetalert2')
-
 /* 🔹 Función para iniciar sesión con Google
 document.getElementById("googleLogin").addEventListener("click", async () => {
   const provider = new GoogleAuthProvider();
@@ -43,29 +38,33 @@ document.getElementById("emailLogin").addEventListener("click", async () => {
 
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    console.log("Usuario autenticado:", userCredential.user);
+    // console.log("Usuario autenticado:", userCredential.user);
 
-    Swal.fire({
+    /* Swal.fire({
       icon: "success",
       title: "¡Éxito!",
       text: "Sesión iniciada correctamente",
       confirmButtonText: "OK"
     }).then(() => {
       location.href = "views/inicio.html";
-    });
+    }); */
 
   } catch (error) {
     console.error("Error en login:", error);
     Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: "Error en login: " + error.message,
+      text: "Creedenciales incorrectas, por favor intenta de nuevo.",
     });
   }
 });
 
 
-document.getElementById("register").addEventListener("click", async () => {
+document.getElementById("register").addEventListener("click",() => {
+  location.href = "views/register.html";
+});
+
+/* document.getElementById("register").addEventListener("click", async () => {
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
 
@@ -103,7 +102,7 @@ document.getElementById("register").addEventListener("click", async () => {
       text: "Error en registro: " + error.message,
     });
   }
-});
+}); */
 
 
 // Agregar un evento para detectar la tecla Enter en el campo de contraseña
