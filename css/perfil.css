@@ -1,0 +1,251 @@
+/* Reseteo básico de márgenes y padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #002c49;
+}
+
+/* Contenedor principal */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    flex-direction: column;
+    text-align: center;
+}
+
+/* Estilo para el logo */
+.logo-container {
+    margin-top: 0px;
+}
+
+.logo {
+    width: 200px;  /* Ajusta el tamaño del logo como desees */
+    height: auto;
+}
+
+/* Estilo para el formulario */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.iniciar {
+    color: white;
+    font-size: 34px;
+    margin-bottom: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+input {
+    width: 250px;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: white;
+}
+
+button {
+    width: 250px;
+    padding: 10px;
+    margin: 10px;
+    background-color: #f5a842;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #f89410;
+}
+
+.volver {
+    color: white;
+    font-size: 16px;
+    margin-top: 10px;
+    background-color: gray;
+}
+
+.volver:hover {
+    background-color: #333;
+}
+
+.guardar {
+    color: white;
+    font-size: 16px;
+    margin-top: 10px;
+    background-color: #008000;
+}
+
+.guardar:hover {
+    background-color: #016401;
+}
+
+/* Estilo para los labels */
+label {
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 5px;
+    display: block; /* Asegura que cada label ocupe su propia línea */
+}
+
+/* Estilo para el container en dispositivos con pantalla como portatil etc */
+@media (min-width: 768px) {
+
+    /* Escondemos el logo */
+    .logo-container {
+        display: none;
+    }
+
+    .iniciar {
+        margin-top: 6%;
+    }
+
+    .form-container {
+        max-width: 600px; /* Ancho máximo del formulario */
+        margin: auto;
+    }
+
+    /* Los labels ocupan una columna completa */
+    .form-container label {
+        grid-column: span 2; /* Los labels deben ocupar todo el ancho */
+        text-align: center;
+    }
+
+    /* Los inputs y botones deben ocupar una sola columna */
+    .form-container button {
+        width: 100%; /* Que los inputs y botones ocupen su columna completa */
+    }
+
+    .form-container input {
+        width: 80%; /* Que los inputs y botones ocupen su columna completa */
+    }
+
+    .form-container h1 {
+        grid-column: span 2; /* Para que el título ocupe las dos columnas */
+        text-align: center;
+    }
+}
+
+
+
+/* Estilo para el spinner personalizado */
+
+.lds-dual-ring {
+    /* change color here */
+    color: #f5a842;  
+    display: none; 
+    position: fixed; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    z-index: 9999; 
+    font-size: 3rem;
+}
+
+.lds-dual-ring,
+.lds-dual-ring:after {
+  box-sizing: border-box;
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6.4px solid currentColor;
+  border-color: currentColor transparent currentColor transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+
+/* Animación del spinner */
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Indicador de carga centrado */
+#loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  font-size: 3rem; /* Tamaño mayor */
+}
+
+
+
+/* Estilo para el spinner personalizado */
+.lds-dual-ring,
+.lds-dual-ring:after {
+  box-sizing: border-box;
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6.4px solid currentColor;
+  border-color: currentColor transparent currentColor transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+
+/* Animación del spinner */
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Indicador de carga centrado */
+#loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  font-size: 3rem; /* Tamaño mayor */
+}
+
+/* Fondo borroso cuando se está cargando */
+#content-container.loading {
+  filter: blur(5px); /* Aplica el efecto de desenfoque */
+  pointer-events: none; /* Desactiva la interacción con el fondo */
+}

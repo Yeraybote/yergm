@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YERGM - Perfil</title>
+    <script type="module" src="../js/firebase.js"></script>
+    <script type="module" src="../js/perfil.js"></script>
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap JS y Popper.js (necesarios para los componentes interactivos) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="../css/perfil.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="../resources/yergm.jpg" type="image/jpg">
+</head>
+<body>
+
+    <!-- Indicador de carga (spinner) que se mostrará mientras se cargan los datos -->
+    <div id="loading" class="lds-dual-ring"></div>
+
+    <div id="content-container" class="container">
+        
+        <div class="logo-container">
+            <img src="../resources/yergm.jpg" id="logo" alt="Logo YERGM" class="logo">
+        </div>
+
+        <div class="form-container">
+            <h1 class="iniciar">Perfil de Usuario</h1>
+
+            <div class="profile-info">
+                <label for="nombre text-light">Nombre de usuario</label>
+                <input type="text" id="nombre" disabled>
+                <label for="email">Correo electrónico</label>
+                <input type="email" id="email" disabled>
+                <label for="fechaNacimiento">Fecha de nacimiento</label>
+                <input type="date" id="fechaNacimiento" disabled>
+                <label for="peso">Peso (kg)</label>
+                <input type="number" id="peso" disabled>
+                <label for="altura">Altura (cm)</label>
+                <input type="number" id="altura" disabled>
+
+                <button id="editarPerfil" class="">Editar Perfil</button>
+                <button id="guardarPerfil" class="guardar" style="display:none;">Guardar Cambios</button>
+                <button id="volver" class="volver">Volver al Inicio</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

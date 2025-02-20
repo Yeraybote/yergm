@@ -80,3 +80,7 @@ document.getElementById("logout").addEventListener("click", async () => {
 });
 
 
+// Al darle al botón de "perfilBtn" quiero que me lleve a la página de perfil.html
+document.getElementById("perfilBtn").addEventListener("click", () => {
+  location.href = "./perfil.html";
+});

@@ -39,7 +39,6 @@ const auth = getAuth();
 onAuthStateChanged(auth, (user) => {
   if (user) {
     const email = user.email; // Aquí ya tenemos el email garantizado
-    // console.log("Usuario autenticado:", email);
 
     buscarMedicion(fechaActual, email)
       .then(medicion => {
@@ -292,9 +291,6 @@ document.getElementById('guardarEntrenamiento').addEventListener('click', functi
     if (document.getElementById('entrenamientoBiceps').checked) entrenamientos.push('Biceps');
     if (document.getElementById('entrenamientoPierna').checked) entrenamientos.push('Pierna');
     if (document.getElementById('entrenamientoCardio').checked) entrenamientos.push('Cardio');
-
-    // Puedes hacer lo que desees con los tipos de entrenamiento seleccionados, como guardarlos en una variable o en la base de datos
-    console.log(entrenamientos); // Solo para prueba, muestra los seleccionados
 
     // Cerrar el modal después de guardar
     var modal = bootstrap.Modal.getInstance(document.getElementById('modalEntrenamiento'));
