@@ -67,3 +67,33 @@ button {
 button:hover {
     background-color: #f5a842;
 }
+
+/* En dispositivos moviles, la clase de .social va a hacer que los botones esten en linea */
+@media (max-width: 768px) {
+    .navbar {
+        display: flex;
+        justify-content: flex-start; /* Alinea el navbar a la izquierda */
+        align-items: center; /* Asegura alineación vertical */
+        padding: 10px;
+        flex-wrap: nowrap; /* Evita que los botones se apilen */
+        width: 100%; /* Asegura que ocupe todo el ancho */
+        gap: 100px; /* Espacio entre los botones */
+        margin-top: -20%;
+        padding-bottom: 20%;
+    }
+
+    .navbar button {
+        flex: 1; /* Hace que los botones ocupen el mismo espacio */
+        max-width: 50%; /* Limita el ancho */
+        white-space: nowrap; /* Evita que el texto se divida */
+    }
+
+    /* Espaciado correcto entre los botones */
+    #socialBtn {
+        margin-right: auto; /* Empuja el botón de Social a la izquierda */
+    }
+
+    #perfilBtn {
+        margin-left: auto; /* Empuja el botón de Perfil a la derecha */
+    }
+}

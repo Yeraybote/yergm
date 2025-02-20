@@ -84,3 +84,8 @@ document.getElementById("logout").addEventListener("click", async () => {
 document.getElementById("perfilBtn").addEventListener("click", () => {
   location.href = "./perfil.html";
 });
+
+// Al darle al botón de "socialBtn" quiero que me lleve a la página de social.html
+document.getElementById("socialBtn").addEventListener("click", () => {
+  location.href = "./social.html";
+});

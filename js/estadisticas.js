@@ -182,39 +182,30 @@ function generarGraficoPersonal(datos) {
     new Chart(ctx, {
         type: "bar",
         data: {
-            labels: ["Gimnasio", "Batido", "Descanso", "Bíceps", "Tríceps", "Espalda", "Pecho", "Pierna", "Hombro", "Cardio", "Horas Descanso"],
+            labels: ["Bíceps", "Tríceps", "Espalda", "Pecho", "Pierna", "Hombro", "Cardio"],
             datasets: [{
-                label: "Frecuencia de actividad",
+                label: "Frecuencia de entrenamiento",
                 data: [
-                    datos.gimnasio, datos.batido, datos.descanso,
                     datos.biceps, datos.triceps, datos.espalda, datos.pecho,
-                    datos.pierna, datos.hombro, datos.cardio, mediaHorasDescanso
+                    datos.pierna, datos.hombro, datos.cardio
                 ],
                 backgroundColor: [
-                    "rgba(255, 99, 132, 0.7)", // Rojo
-                    "rgba(54, 162, 235, 0.7)", // Azul
-                    "rgba(255, 206, 86, 0.7)", // Amarillo
                     "rgba(75, 192, 192, 0.7)", // Verde agua
                     "rgba(153, 102, 255, 0.7)", // Morado
                     "rgba(255, 159, 64, 0.7)", // Naranja
                     "rgba(199, 199, 199, 0.7)", // Gris
                     "rgba(255, 99, 255, 0.7)", // Rosa
                     "rgba(0, 255, 127, 0.7)", // Verde
-                    "rgba(0, 191, 255, 0.7)", // Azul claro
-                    "rgba(255, 0, 0, 0.7)"  // Rojo intenso para horas de descanso
+                    "rgba(0, 191, 255, 0.7)"  // Azul claro
                 ],
                 borderColor: [
-                    "rgba(255, 99, 132, 1)",
-                    "rgba(54, 162, 235, 1)",
-                    "rgba(255, 206, 86, 1)",
                     "rgba(75, 192, 192, 1)",
                     "rgba(153, 102, 255, 1)",
                     "rgba(255, 159, 64, 1)",
                     "rgba(199, 199, 199, 1)",
                     "rgba(255, 99, 255, 1)",
                     "rgba(0, 255, 127, 1)",
-                    "rgba(0, 191, 255, 1)",
-                    "rgba(255, 0, 0, 1)"
+                    "rgba(0, 191, 255, 1)"
                 ],
                 borderWidth: 2,
                 borderRadius: 8,
@@ -251,9 +242,8 @@ function generarGraficoPersonal(datos) {
                 y: {
                     beginAtZero: true,
                     suggestedMax: Math.max(
-                        datos.gimnasio, datos.batido, datos.descanso,
                         datos.biceps, datos.triceps, datos.espalda, datos.pecho,
-                        datos.pierna, datos.hombro, datos.cardio, mediaHorasDescanso
+                        datos.pierna, datos.hombro, datos.cardio
                     ) + 1,
                     grid: { color: "rgba(255, 255, 255, 0.2)" },
                     ticks: {
@@ -272,6 +262,7 @@ function generarGraficoPersonal(datos) {
             }
         }
     });
+    
 }
 
 
