@@ -112,6 +112,54 @@ document.getElementById("guardarPerfil").addEventListener("click", function() {
     let peso = document.getElementById("peso").value;
     let altura = document.getElementById("altura").value;
 
+    // Comprobamos que los campos no estén vacíos y sean válidos
+    if (nombre === "" || fechaNacimiento === "" || peso === "" || altura === "") {
+        Swal.fire({
+            title: "¡Error!",
+            text: "Por favor, rellena todos los campos.",
+            icon: "error",
+            timer: 2000,
+            showConfirmButton: false
+        });
+        return;
+    }
+
+    // La fecha de nacimiento debe ser anterior a la fecha actual
+    if (new Date(fechaNacimiento) > new Date()) {
+        Swal.fire({
+            title: "¡Error!",
+            text: "La fecha de nacimiento no puede ser posterior a la fecha actual.",
+            icon: "error",
+            timer: 2000,
+            showConfirmButton: false
+        });
+        return;
+    } 
+
+    // El peso y la altura deben ser números
+    if (isNaN(peso) || isNaN(altura)) {
+        Swal.fire({
+            title: "¡Error!",
+            text: "El peso y la altura deben ser números.",
+            icon: "error",
+            timer: 2000,
+            showConfirmButton: false
+        });
+        return;
+    }
+
+    // El nombre debe tener al menos 3 caracteres y no existir ese nombre en la base de datos
+    if (nombre.length < 3) {
+        Swal.fire({
+            title: "¡Error!",
+            text: "El nombre debe tener al menos 3 caracteres.",
+            icon: "error",
+            timer: 2000,
+            showConfirmButton: false
+        });
+        return;
+    } 
+
     // Actualizar la información en Firebase
     const usuarioRef = ref(database, `usuarios/${usuario.id}`); // Usamos el id del usuario
 
@@ -161,6 +209,32 @@ document.getElementById("guardarPerfil").addEventListener("click", function() {
     // Mostrar el botón de editar y ocultar el de guardar
     document.getElementById("guardarPerfil").style.display = "none";
     document.getElementById("editarPerfil").style.display = "inline-block";
+
+    /* Comparar el nombre introducido con los nombres de los usuarios en la base de datos
+    const usuariosRef = ref(database, 'usuarios');
+    get(usuariosRef).then((snapshot) => {
+        if (snapshot.exists()) {
+            const usuarios = snapshot.val();
+            const nombres = Object.values(usuarios).map(usuario => usuario.nombre);
+
+            console.log(nombres);
+            // Si el nombre ya existe en la base de datos, mostrar un error
+            if (nombres.includes(nombre) && nombre != usuario.nombre) {
+                Swal.fire({
+                    title: "¡Error!",
+                    text: "El nombre introducido ya existe.",
+                    icon: "error",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+
+            } else {
+                // Aqui se actualizan los datos del usuario
+              }
+          }
+      }); */
+
+    
 });
 
 

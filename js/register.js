@@ -38,6 +38,59 @@ document.getElementById("registerUser").addEventListener("click", async () => {
         return;
     }
 
+    // Validación: Comprobar que el email sea válido
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        Swal.fire({
+            icon: "warning",
+            title: "Email inválido",
+            text: "Por favor, introduce un email válido.",
+        });
+        return;
+    }
+
+    // Validación: Comprobar que la contraseña tenga al menos 6 caracteres
+    if (password.length < 6) {
+        Swal.fire({
+            icon: "warning",
+            title: "Contraseña débil",
+            text: "La contraseña debe tener al menos 6 caracteres.",
+        });
+        return;
+    }
+
+    // Validación: Comprobar que la fecha de nacimiento sea válida
+    const fechaNacimientoDate = new Date(fechaNacimiento);
+    if (isNaN(fechaNacimientoDate.getTime())) {
+        Swal.fire({
+            icon: "warning",
+            title: "Fecha de nacimiento inválida",
+            text: "Por favor, introduce una fecha de nacimiento válida.",
+        });
+        return;
+    }
+
+    // Validación: Comprobar que el peso y la altura sean números
+    if (isNaN(peso) || isNaN(altura)) {
+        Swal.fire({
+            icon: "warning",
+            title: "Peso o altura inválidos",
+            text: "Por favor, introduce un peso y una altura válidos.",
+        });
+        return;
+    }
+
+    // Validación: Comprobar que el peso y la altura sean positivos
+    if (peso <= 0 || altura <= 0) {
+        Swal.fire({
+            icon: "warning",
+            title: "Peso o altura inválidos",
+            text: "Por favor, introduce un peso y una altura válidos.",
+        });
+        return;
+    }
+
+
     try {
         /* Crear usuario en Firebase Auth */
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -81,4 +134,9 @@ document.getElementById("registerUser").addEventListener("click", async () => {
 
 document.getElementById("goToLogin").addEventListener("click", () => {
     window.location.href = "../index.html";
+});
+
+// Al darle al logo quiero que me lleve a la página de index.html
+document.getElementById("logo").addEventListener("click", () => {
+    location.href = "../index.html";
 });
