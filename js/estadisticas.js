@@ -79,10 +79,9 @@ async function cargarEstadisticas(email, year, month) {
         }
 
         const datos = snapshot.val();
-        let datosUsuario = { gimnasio: 0, batido: 0, descanso: 0 };
+        let datosUsuario = { gimnasio: 0, batido: 0, descanso: 0, biceps: 0, triceps: 0, espalda: 0, pecho: 0, pierna: 0, hombro: 0, cardio: 0, horasDescanso: 0 };
 
         Object.values(datos).forEach((data) => {
-            //console.log(data);
 
             // Convertimos la fecha de "yyyy-mm-dd"
             const [dbYear, dbMonth, day] = data.fecha.split("-");
@@ -92,12 +91,32 @@ async function cargarEstadisticas(email, year, month) {
                 if (data.gimnasio === "X") datosUsuario.gimnasio++;
                 if (data.batido === "X") datosUsuario.batido++;
                 if (data.descanso === "X") datosUsuario.descanso++;
+
+                if (data.biceps === "X") datosUsuario.biceps++;
+                if (data.triceps === "X") datosUsuario.triceps++;
+                if (data.espalda === "X") datosUsuario.espalda++;
+                if (data.pecho === "X") datosUsuario.pecho++;
+                if (data.pierna === "X") datosUsuario.pierna++;
+                if (data.hombro === "X") datosUsuario.hombro++;
+                if (data.cardio === "X") datosUsuario.cardio++;
+
+                if (data.descanso === "X") datosUsuario.horasDescanso += parseInt(data.horasDescanso);
             }
 
             if (parseInt(dbYear) === parseInt(year) && parseInt(dbMonth) === parseInt(month)) {
                 if (data.gimnasio === "X") datosUsuario.gimnasio++;
                 if (data.batido === "X") datosUsuario.batido++;
                 if (data.descanso === "X") datosUsuario.descanso++;
+
+                if (data.biceps === "X") datosUsuario.biceps++;
+                if (data.triceps === "X") datosUsuario.triceps++;
+                if (data.espalda === "X") datosUsuario.espalda++;
+                if (data.pecho === "X") datosUsuario.pecho++;
+                if (data.pierna === "X") datosUsuario.pierna++;
+                if (data.hombro === "X") datosUsuario.hombro++;
+                if (data.cardio === "X") datosUsuario.cardio++;
+
+                if (data.descanso === "X") datosUsuario.horasDescanso += parseInt(data.horasDescanso);
             }
         });
 
@@ -135,8 +154,9 @@ document.getElementById("filterMonth").addEventListener("change", (e) => {
 });
 
 
-// Función para generar el gráfico personal con tamaño adecuado y sin problemas visuales
 function generarGraficoPersonal(datos) {
+    console.log("Datos del usuario:", datos);
+
     // Verificar si ya existe un gráfico y destruirlo antes de crear uno nuevo
     const oldCanvas = document.getElementById("graficoPersonal");
     if (oldCanvas) {
@@ -147,35 +167,58 @@ function generarGraficoPersonal(datos) {
     const container = document.getElementById("pills-personales");
     const canvas = document.createElement("canvas");
     canvas.id = "graficoPersonal";
-    canvas.style.maxWidth = "400px"; // Ancho máximo
-    canvas.style.maxHeight = "300px"; // Altura máxima
-    canvas.style.margin = "0 auto"; // Centrar el gráfico
+    canvas.style.maxWidth = "500px"; // Ajustar el tamaño
+    canvas.style.maxHeight = "350px";
+    canvas.style.margin = "0 auto";
 
     container.appendChild(canvas);
 
     // Obtener el contexto del canvas
     const ctx = canvas.getContext("2d");
 
+    // Calcular la media de horas de descanso
+    let mediaHorasDescanso = datos.descanso > 0 ? (datos.horasDescanso / datos.descanso).toFixed(1) : 0;
+
     new Chart(ctx, {
         type: "bar",
         data: {
-            labels: ["Gimnasio", "Batido", "Descanso"],
+            labels: ["Gimnasio", "Batido", "Descanso", "Bíceps", "Tríceps", "Espalda", "Pecho", "Pierna", "Hombro", "Cardio", "Horas Descanso"],
             datasets: [{
                 label: "Frecuencia de actividad",
-                data: [datos.gimnasio, datos.batido, datos.descanso],
+                data: [
+                    datos.gimnasio, datos.batido, datos.descanso,
+                    datos.biceps, datos.triceps, datos.espalda, datos.pecho,
+                    datos.pierna, datos.hombro, datos.cardio, mediaHorasDescanso
+                ],
                 backgroundColor: [
-                    "rgba(255, 99, 132, 0.7)", // Rojo semi-transparente
-                    "rgba(54, 162, 235, 0.7)", // Azul semi-transparente
-                    "rgba(255, 206, 86, 0.7)"  // Amarillo semi-transparente
+                    "rgba(255, 99, 132, 0.7)", // Rojo
+                    "rgba(54, 162, 235, 0.7)", // Azul
+                    "rgba(255, 206, 86, 0.7)", // Amarillo
+                    "rgba(75, 192, 192, 0.7)", // Verde agua
+                    "rgba(153, 102, 255, 0.7)", // Morado
+                    "rgba(255, 159, 64, 0.7)", // Naranja
+                    "rgba(199, 199, 199, 0.7)", // Gris
+                    "rgba(255, 99, 255, 0.7)", // Rosa
+                    "rgba(0, 255, 127, 0.7)", // Verde
+                    "rgba(0, 191, 255, 0.7)", // Azul claro
+                    "rgba(255, 0, 0, 0.7)"  // Rojo intenso para horas de descanso
                 ],
                 borderColor: [
                     "rgba(255, 99, 132, 1)",
                     "rgba(54, 162, 235, 1)",
-                    "rgba(255, 206, 86, 1)"
+                    "rgba(255, 206, 86, 1)",
+                    "rgba(75, 192, 192, 1)",
+                    "rgba(153, 102, 255, 1)",
+                    "rgba(255, 159, 64, 1)",
+                    "rgba(199, 199, 199, 1)",
+                    "rgba(255, 99, 255, 1)",
+                    "rgba(0, 255, 127, 1)",
+                    "rgba(0, 191, 255, 1)",
+                    "rgba(255, 0, 0, 1)"
                 ],
-                borderWidth: 2, // Bordes de las barras
-                borderRadius: 8, // Bordes redondeados
-                barPercentage: 0.5, // Tamaño de las barras
+                borderWidth: 2,
+                borderRadius: 8,
+                barPercentage: 0.5,
                 categoryPercentage: 0.8
             }]
         },
@@ -183,8 +226,8 @@ function generarGraficoPersonal(datos) {
             responsive: true,
             maintainAspectRatio: false,
             animation: {
-                duration: 800, // Animación más fluida
-                easing: "easeOutQuad" // Efecto de animación suave
+                duration: 800,
+                easing: "easeOutQuad"
             },
             plugins: {
                 legend: {
@@ -207,7 +250,11 @@ function generarGraficoPersonal(datos) {
             scales: {
                 y: {
                     beginAtZero: true,
-                    suggestedMax: Math.max(datos.gimnasio, datos.batido, datos.descanso) + 1, // Ajusta la escala sin que se vea muy grande
+                    suggestedMax: Math.max(
+                        datos.gimnasio, datos.batido, datos.descanso,
+                        datos.biceps, datos.triceps, datos.espalda, datos.pecho,
+                        datos.pierna, datos.hombro, datos.cardio, mediaHorasDescanso
+                    ) + 1,
                     grid: { color: "rgba(255, 255, 255, 0.2)" },
                     ticks: {
                         font: { size: 12 },
@@ -226,6 +273,7 @@ function generarGraficoPersonal(datos) {
         }
     });
 }
+
 
 async function cargarRankingGlobal() {
     try {
