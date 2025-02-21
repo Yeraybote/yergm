@@ -33,39 +33,36 @@
             <li class="nav-item" role="presentation">
                 <button class="nav-link text-light fw-semibold active" id="pills-amigos-tab" data-bs-toggle="pill" data-bs-target="#pills-amigos" type="button" role="tab">Amigos</button>
             </li>
+
             <li class="nav-item" role="presentation">
-                <button class="nav-link text-light fw-semibold" id="pills-solicitudes-tab" data-bs-toggle="pill" data-bs-target="#pills-solicitudes" type="button" role="tab">Solicitudes</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link text-light fw-semibold" id="pills-agregar-tab" data-bs-toggle="pill" data-bs-target="#pills-agregar" type="button" role="tab">Añadir</button>
+                <button class="nav-link text-light fw-semibold" id="pills-agregar-tab" data-bs-toggle="pill" data-bs-target="#pills-agregar" type="button" role="tab">Añadir amigos</button>
             </li>
         </ul>
 
         <div class="tab-content border rounded-3 border-primary p-3 text-white" id="pills-tabContent">
             <!-- Lista de amigos -->
             <div class="tab-pane fade show active" id="pills-amigos" role="tabpanel">
-                <h2>Mis Amigos</h2>
+
                 <ul id="lista-amigos" class="list-group">
                     <!-- Amigos se insertarán aquí -->
                 </ul>
-            </div>
-
-            <!-- Solicitudes de amistad -->
-            <div class="tab-pane fade" id="pills-solicitudes" role="tabpanel">
-                <h2>Solicitudes Pendientes</h2>
-                <ul id="lista-solicitudes" class="list-group">
-                    <!-- Solicitudes se insertarán aquí -->
-                </ul>
+                
             </div>
 
             <!-- Buscar y agregar amigos -->
             <div class="tab-pane fade" id="pills-agregar" role="tabpanel">
-                <h2>Añadir Amigos</h2>
-                <input type="text" id="buscar-amigos" class="form-control" placeholder="Buscar usuarios...">
-                <ul id="lista-busqueda" class="list-group mt-3">
-                    <!-- Resultados de búsqueda aquí -->
-                </ul>
+                
+                <!-- Botón para generar un enlace de amistad -->
+                <button id="generar-enlace" class="btn generar mt-2">Generar Enlace de Amistad</button>
+
+                <!-- Mostrar el enlace generado -->
+                <div id="enlace-container" class="mt-3 d-none">
+                    <input type="text" id="enlace-amistad" class="form-control" readonly>
+                    <button id="copiar-enlace" class="btn btn-secondary mt-2">Copiar Enlace</button>
+                </div>
+
             </div>
+
         </div>
     </div>
 

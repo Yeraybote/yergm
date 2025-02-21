@@ -43,10 +43,31 @@ body, html {
     border-radius: 5px 5px 0 0;
 }
 
-/* Asegúrate de que el datepicker se muestre encima de otros elementos */
-.datepicker {
-    z-index: 1050 !important; /* Asegurar que está por encima de otros elementos */
+#lista-amigos {
+    height: 100%;
+    overflow-y: auto;
+    background-color: #f5a842;
 }
+
+#lista-amigos .list-group-item {
+    border: none;
+    border-radius: 0;
+    background-color: #f5a842;
+    color: #002c49;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.generar {
+    background-color: #f5a842;
+    color: #002c49;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
 
 /* Ajusta el tamaño de la tabla en pantallas pequeñas */
 @media (max-width: 768px) {
