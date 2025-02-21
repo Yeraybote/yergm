@@ -119,7 +119,7 @@ function generarEnlaceAmistad() {
         sender: user.uid,
         expiresAt
     }).then(() => {
-        const enlace = `${window.location.origin}/social.html?token=${token}`;
+        const enlace = `https://yeraybote.github.io/yergm/views/social.html?token=${token}`;
         document.getElementById("enlace-container").classList.remove("d-none");
         document.getElementById("enlace-amistad").value = enlace;
         Swal.fire("¡Enlace generado!", "Comparte este enlace con tus amigos.", "success");
