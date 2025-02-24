@@ -83,11 +83,46 @@
                             <option value="12">Diciembre</option>
                       </select>
                   </div>
-              </div>
+                </div>
                 <canvas id="graficoPersonal"></canvas> <!-- Aquí se mostrará el gráfico -->
             </div>
             <div class="tab-pane fade" id="pills-amigos" role="tabpanel" aria-labelledby="pills-amigos-tab">
-                <canvas id="grafico-mediciones"></canvas>
+
+                <!-- Filtros de Año y Mes -->
+                <div class="row mb-3">
+                    <!-- Filtros de Amigo -->
+                    <div class="col-md-6 pb-2">
+                        <label for="filterFriend" class="form-label">Amigo</label>
+                        <select id="filterFriend" class="form-select">
+                            <!-- Opciones de amigos -->
+                        </select>
+                    </div>
+                  <div class="col-md-6 pb-2">
+                      <label for="filterYear" class="form-label">Año</label>
+                      <input type="text" id="yearPickerAmigos" class="form-control anio" placeholder="Año">
+                  </div>
+                  <div class="col-md-6">
+                      <label for="filterMonth" class="form-label">Mes</label>
+                      <select id="filterMonthAmigos" class="form-select">
+                          <!-- Opciones de meses -->
+                           <option value="00">Todos</option>
+                           <option value="01">Enero</option>
+                            <option value="02">Febrero</option>
+                            <option value="03">Marzo</option>
+                            <option value="04">Abril</option>
+                            <option value="05">Mayo</option>
+                            <option value="06">Junio</option>
+                            <option value="07">Julio</option>
+                            <option value="08">Agosto</option>
+                            <option value="09">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+                      </select>
+                  </div>
+
+                </div>
+                    <canvas id="graficoAmigos"></canvas>
             </div>
             <div class="tab-pane fade" id="pills-global" role="tabpanel" aria-labelledby="pills-global-tab">
                 <h2 class="text-center mb-2 pb-2">Ranking Global 🏅</h2>
