@@ -420,7 +420,17 @@ async function cargarAmigos(userUuid) {
 
         } else {
             console.log("No hay amigos registrados.");
-            Swal.fire("Sin amigos", "No tienes amigos registrados.", "info");
+            //Swal.fire("Sin amigos", "No tienes amigos registrados.", "info");
+
+            // Limpiar el gráfico si no hay amigos
+            const oldCanvas = document.getElementById("graficoAmigos");
+
+            // Limpiamos el canvas, sin eliminarlo
+            const ctx = oldCanvas.getContext("2d");
+
+            ctx.clearRect(0, 0, oldCanvas.width, oldCanvas.height);
+
+            return;
         }
 
         // Cargar las estadísticas del amigo seleccionado
@@ -436,6 +446,12 @@ async function cargarAmigos(userUuid) {
 
 // Función para obtener estadísticas de un amigo
 async function cargarEstadisticasAmigo(friendUuid, year, month) {
+
+    if (!friendUuid) {
+        console.error("No se proporcionó el UUID del amigo.");
+        return;
+    }
+
     try {
         // Sacamos el mail del amigo
         const dbRef1 = ref(db, `usuarios/${friendUuid}`);
@@ -536,7 +552,6 @@ function generarGraficoAmigo(datos) {
     canvas.id = "graficoAmigos";
     canvas.style.maxWidth = "500px"; // Ajustar el tamaño
     canvas.style.maxHeight = "350px";
-    
     canvas.style.margin = "0 auto";
 
     container.appendChild(canvas);

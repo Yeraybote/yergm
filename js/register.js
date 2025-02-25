@@ -96,13 +96,13 @@ document.getElementById("registerUser").addEventListener("click", async () => {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const userId = userCredential.user.uid; 
 
-        console.log("Datos que vamos a guardar en la base de datos:", {
+        /* console.log("Datos que vamos a guardar en la base de datos:", {
             nombre: nombre,
             email: email,
             fechaNacimiento: fechaNacimiento,
             peso: peso,
             altura: altura,
-        });
+        }); */
 
         // Guardar datos en Firebase Database
         await set(ref(db, "usuarios/" + userId), {
