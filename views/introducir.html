@@ -60,13 +60,13 @@
                     </div>
                     <div class="checkbox">
                         <label class="checkbox-wrapper">
-                            <input type="checkbox" id="batido" class="checkbox-input" />
+                            <input type="checkbox" id="cardio" class="checkbox-input" />
                             <span class="checkbox-tile fondo-azul">
                                 <span class="checkbox-icon">
                                     <!-- Img -->
-                                    <img src="../resources/batido-de-proteinas.png" width="70px" height="60px" style="margin-bottom: 10px;" alt="Batido" class="checkbox-icon">
+                                    <img src="../resources/correr.png" width="70px" height="60px" style="margin-bottom: 10px;" alt="Batido" class="checkbox-icon">
                                 </span>
-                                <span class="checkbox-label">Batido</span>
+                                <span class="checkbox-label">Cardio</span>
                             </span>
                         </label>
                     </div>
@@ -154,6 +154,32 @@
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="cerrarDescanso">Cancelar</button>
                     </div>
                 </div>
+                </div>
+            </div>
+
+            <!-- Modal para Registrar Cardio -->
+            <div class="modal fade" id="modalCardio" tabindex="-1" aria-labelledby="modalCardioLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalCardioLabel">Registrar Cardio</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="distanciaCardio" class="form-label">Distancia (km)</label>
+                                <input type="number" id="distanciaCardio" class="form-control" min="0" step="1" placeholder="Introduce la distancia">
+                            </div>
+                            <div class="mb-3">
+                                <label for="tiempoCardio" class="form-label">Tiempo (min)</label>
+                                <input type="number" id="tiempoCardio" class="form-control" min="0" step="1" placeholder="Introduce el tiempo">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="guardarCardio">Guardar</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="cerrarCardio">Cancelar</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             

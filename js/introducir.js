@@ -30,6 +30,8 @@ const fechaActual = `${yyyy}-${mm}-${dd}`;
 //  Array para guardar los tipos de entrenamiento seleccionados
 let entrenamientos = [];
 let horasDescanso = 0;
+let kmRecorridos = 0;
+let minutosCardio = 0;
 
 // Asignar la fecha actual al input de fecha
 document.getElementById('fecha').value = fechaActual;
@@ -45,7 +47,7 @@ onAuthStateChanged(auth, (user) => {
         if (medicion) {
           // Si se encuentra una medición, marcamos los checkboxes correspondientes
           document.getElementById('gimnasio').checked = medicion.gimnasio === 'X';
-          document.getElementById('batido').checked = medicion.batido === 'X';
+          document.getElementById('cardio').checked = medicion.entrenoCardio === 'X';
           document.getElementById('descanso').checked = medicion.descanso === 'X';
 
           // Marcar los checkboxes de entrenamiento si existen
@@ -64,10 +66,17 @@ onAuthStateChanged(auth, (user) => {
           // Guardar las horas de descanso en la variable global
           horasDescanso = medicion.horasDescanso;
 
+          // Guardar los minutos y km recorridos en las variables globales
+          minutosCardio = medicion.minutosCardio;
+          kmRecorridos = medicion.kmRecorridos;
+
+          document.getElementById('tiempoCardio').value = minutosCardio;
+          document.getElementById('distanciaCardio').value = kmRecorridos;
+
         } else {
           // Si no hay medición para esa fecha, aseguramos que los checkboxes estén desmarcados
           document.getElementById('gimnasio').checked = false;
-          document.getElementById('batido').checked = false;
+          document.getElementById('cardio').checked = false;
           document.getElementById('descanso').checked = false;
 
           // Desmarcar los checkboxes de entrenamiento
@@ -84,6 +93,12 @@ onAuthStateChanged(auth, (user) => {
           document.getElementById('sliderHorasSueño').value = 8;
           document.getElementById('horasSeleccionadas').textContent = 8;
 
+          // Dejar los minutos y km recorridos en 0
+          minutosCardio = 0;
+          kmRecorridos = 0;
+          document.getElementById('tiempoCardio').value = 0;
+          document.getElementById('distanciaCardio').value = 0;
+
         }
       })
       .catch(error => {
@@ -95,7 +110,7 @@ onAuthStateChanged(auth, (user) => {
 });
 
 // Función para agregar o actualizar medición a la base de datos
-function agregarOActualizarMedicion(id, fecha, gimnasio, batido, descanso) {
+function agregarOActualizarMedicion(id, fecha, gimnasio, descanso, cardio) {
   const auth = getAuth();
   
   onAuthStateChanged(auth, (user) => {
@@ -120,7 +135,7 @@ function agregarOActualizarMedicion(id, fecha, gimnasio, batido, descanso) {
           email: email,
           fecha: fecha,
           gimnasio: gimnasio,
-          batido: batido,
+          entrenoCardio: cardio,
           descanso: descanso,
           pecho: entrenamientos.includes("Pecho") ? "X" : "",
           hombro: entrenamientos.includes("Hombro") ? "X" : "",
@@ -130,7 +145,11 @@ function agregarOActualizarMedicion(id, fecha, gimnasio, batido, descanso) {
           pierna: entrenamientos.includes("Pierna") ? "X" : "",
           cardio: entrenamientos.includes("Cardio") ? "X" : "",
           // Si el descanso es 'X', guardar las horas de descanso
-          horasDescanso: descanso === 'X' ? horasDescanso : 0
+          horasDescanso: descanso === 'X' ? horasDescanso : 0,
+
+          // Si el entrenoCardio es 'X', guardar los minutos y km recorridos
+          minutosCardio: cardio === 'X' ? minutosCardio : 0,
+          kmRecorridos: cardio === 'X' ? kmRecorridos : 0
         };
 
         if (medicionExistente) {
@@ -186,7 +205,7 @@ document.getElementById('fecha').addEventListener('change', function () {
             if (medicion) {
               // Si se encuentra una medición, marcamos los checkboxes correspondientes
               document.getElementById('gimnasio').checked = medicion.gimnasio === 'X';
-              document.getElementById('batido').checked = medicion.batido === 'X';
+              document.getElementById('cardio').checked = medicion.entrenoCardio === 'X';
               document.getElementById('descanso').checked = medicion.descanso === 'X';
 
               // Marcar los checkboxes de entrenamiento si existen
@@ -204,11 +223,18 @@ document.getElementById('fecha').addEventListener('change', function () {
 
               horasDescanso = medicion.horasDescanso;
 
+              // Guardar los minutos y km recorridos en las variables globales
+              minutosCardio = medicion.minutosCardio;
+              kmRecorridos = medicion.kmRecorridos;
+
+              document.getElementById('tiempoCardio').value = minutosCardio;
+              document.getElementById('distanciaCardio').value = kmRecorridos;
+
 
             } else {
               // Si no hay medición para esa fecha, aseguramos que los checkboxes estén desmarcados
               document.getElementById('gimnasio').checked = false;
-              document.getElementById('batido').checked = false;
+              document.getElementById('cardio').checked = false;
               document.getElementById('descanso').checked = false;
 
               // Desmarcar los checkboxes de entrenamiento
@@ -224,6 +250,12 @@ document.getElementById('fecha').addEventListener('change', function () {
               horasDescanso = 8;
               document.getElementById('sliderHorasSueño').value = 8;
               document.getElementById('horasSeleccionadas').textContent = 8;
+
+              // Dejar los minutos y km recorridos en 0
+              minutosCardio = 0;
+              kmRecorridos = 0;
+              document.getElementById('tiempoCardio').value = 0;
+              document.getElementById('distanciaCardio').value = 0;
 
             }
           })
@@ -244,14 +276,14 @@ document.getElementById('formMedicion').addEventListener('submit', function(even
   // Obtener los valores del formulario
   const fecha = document.getElementById('fecha').value;
   const gimnasio = document.getElementById('gimnasio').checked ? 'X' : ''; // Guardamos 'X' si está marcado
-  const batido = document.getElementById('batido').checked ? 'X' : ''; // Guardamos 'X' si está marcado
+  const cardio = document.getElementById('cardio').checked ? 'X' : ''; // Guardamos 'X' si está marcado
   const descanso = document.getElementById('descanso').checked ? 'X' : ''; // Guardamos 'X' si está marcado
 
   // Crear un ID único para la medición (puedes usar otro método si prefieres)
   const medicionId = new Date().getTime();  // Usamos el timestamp como ID único para cada medición
 
   // Llamamos a la función para agregar o actualizar la medición en la base de datos
-  agregarOActualizarMedicion(medicionId, fecha, gimnasio, batido, descanso);
+  agregarOActualizarMedicion(medicionId, fecha, gimnasio, descanso, cardio);
 
   // SweetAlert2: Mostrar mensaje de éxito
   Swal.fire({
@@ -390,4 +422,64 @@ document.getElementById('cerrarDescanso').addEventListener('click', function() {
 
   // Desmarcar el checkbox de descanso
   document.getElementById('descanso').checked = false;
+});
+
+/*************************  CARDIO *************************************** */
+
+// Evento de mostrar el modal cuando se hace clic en el checkbox de descanso
+document.getElementById('cardio').addEventListener('click', function() {
+  // Mostrar el modal para registrar las horas de sueño
+  var modal = new bootstrap.Modal(document.getElementById('modalCardio'));
+  modal.show();
+});
+
+
+// Guardar las horas de descanso al hacer clic en "Guardar"
+document.getElementById('guardarCardio').addEventListener('click', function() {
+  minutosCardio = document.getElementById('tiempoCardio').value;
+  kmRecorridos = document.getElementById('distanciaCardio').value;
+
+  // Si hay alguna opción vacía, mostrar un mensaje de error
+  console.log(minutosCardio, kmRecorridos);
+  if (minutosCardio === 0 || kmRecorridos === 0 || minutosCardio == '' || kmRecorridos == '') {
+    Swal.fire({
+      icon: "warning",
+      title: "¡Cuidado!",
+      text: "Debes seleccionar el tiempo y la distancia recorrida para poder guardar el entrenamiento de cardio.",
+    });
+    return;
+  }
+  
+  // Cerrar el modal después de guardar
+  var modal = bootstrap.Modal.getInstance(document.getElementById('modalCardio'));
+  modal.hide();
+  
+  // Desmarcar el checkbox de descanso
+  document.getElementById('cardio').checked = true;
+});
+
+// Al darle al botón de cerrar el modal de selección de horas de descanso cerrarDescanso se cierre y se desmarque el checkbox de descanso
+document.getElementById('cerrarCardio').addEventListener('click', function() {
+  // Cerrar el modal
+  var modal = bootstrap.Modal.getInstance(document.getElementById('modalCardio'));
+  modal.hide();
+
+  // Dejar el valor de horasDescanso en 0
+  minutosCardio = 0;
+  kmRecorridos = 0;
+
+  // Ponemos el valor del slider en 8
+  document.getElementById('tiempoCardio').value = 0;
+  document.getElementById('distanciaCardio').value = 0;
+
+  // Desmarcar el checkbox de descanso
+  document.getElementById('cardio').checked = false;
+});
+
+// Si al cerrar el modal, modalCardio tiene algun valor, marcar el checkbox de descanso
+document.getElementById('modalCardio').addEventListener('hidden.bs.modal', function() {
+
+  // Verificar si horasDescanso tiene un valor
+  document.getElementById('cardio').checked = minutosCardio > 0 && kmRecorridos > 0;
+
 });
