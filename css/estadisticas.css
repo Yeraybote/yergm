@@ -48,6 +48,15 @@ body, html {
     z-index: 1050 !important; /* Asegurar que está por encima de otros elementos */
 }
 
+
+/* Estilo para las cards de correr */
+.card-body {
+    background-color: #f5a842;
+    border-radius: 5px;
+    text-align: center;
+    justify-content: center;
+}
+
 /* Ajusta el tamaño de la tabla en pantallas pequeñas */
 @media (max-width: 768px) {
     .table th, .table td {

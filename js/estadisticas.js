@@ -120,6 +120,12 @@ async function cargarEstadisticas(email, year, month) {
                 if (data.cardio === "X") datosUsuario.cardio++;
 
                 if (data.descanso === "X") datosUsuario.horasDescanso += parseInt(data.horasDescanso);
+
+                // Si entrenoCardio es X, sumamos kmRecorridos y minutosCardio
+                if (data.entrenoCardio === "X") {
+                    datosUsuario.kmRecorridos = (datosUsuario.kmRecorridos || 0) + parseInt(data.kmRecorridos);
+                    datosUsuario.minutosCardio = (datosUsuario.minutosCardio || 0) + parseInt(data.minutosCardio);
+                } 
             }
 
             if (parseInt(dbYear) === parseInt(year) && parseInt(dbMonth) === parseInt(month)) {
@@ -136,6 +142,12 @@ async function cargarEstadisticas(email, year, month) {
                 if (data.cardio === "X") datosUsuario.cardio++;
 
                 if (data.descanso === "X") datosUsuario.horasDescanso += parseInt(data.horasDescanso);
+
+                // Si entrenoCardio es X, sumamos kmRecorridos y minutosCardio
+                if (data.entrenoCardio === "X") {
+                    datosUsuario.kmRecorridos = (datosUsuario.kmRecorridos || 0) + parseInt(data.kmRecorridos);
+                    datosUsuario.minutosCardio = (datosUsuario.minutosCardio || 0) + parseInt(data.minutosCardio);
+                }
             }
         });
 
@@ -218,7 +230,7 @@ document.getElementById("filterFriend").addEventListener("change", (e) => {
 
 
 function generarGraficoPersonal(datos) {
-    //console.log("Datos del usuario:", datos);
+    console.log("Datos del usuario:", datos);
 
     // Verificar si ya existe un gráfico y destruirlo antes de crear uno nuevo
     const oldCanvas = document.getElementById("graficoPersonal");
@@ -325,6 +337,17 @@ function generarGraficoPersonal(datos) {
             }
         }
     });
+
+    // Mostramos los km recorridos y minutos de cardio si los hay
+    if (datos.kmRecorridos && datos.minutosCardio) {
+        const kmRecorridos = datos.kmRecorridos;
+        const minutosCardio = datos.minutosCardio;
+        
+        // Actualizar en la interfaz
+        document.getElementById("totalKm").textContent = `${kmRecorridos} km`;
+        document.getElementById("totalMinutos").textContent = `${minutosCardio} min`;
+
+    }
     
 }
 
