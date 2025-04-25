@@ -493,7 +493,7 @@ async function cargarEstadisticasAmigo(friendUuid, year, month) {
         const snapshot = await get(dbRef);
 
         if (!snapshot.exists()) {
-            Swal.fire("Sin datos", "No se encontraron estadísticas registradas.", "info");
+            //Swal.fire("Sin datos", "No se encontraron estadísticas registradas.", "info");
 
             // Limpiar el gráfico si no hay datos
             const oldCanvas = document.getElementById("graficoAmigos");
