@@ -37,6 +37,8 @@
     <link rel="icon" href="../resources/yergm.jpg" type="image/jpg">
 </head>
 <body>
+    <!-- Indicador de carga (spinner) que se mostrará mientras se cargan los datos -->
+    <div id="loading" class="lds-dual-ring"></div>
     <div class="container p-5">
         <!-- Logo centrado -->
         <div class="logo-container">
@@ -50,9 +52,10 @@
           <li class="nav-item" role="presentation">
             <button class="nav-link text-light fw-semibold position-relative" id="pills-amigos-tab" data-bs-toggle="pill" data-bs-target="#pills-amigos" type="button" role="tab" aria-controls="pills-amigos" aria-selected="false">Amigos</button>
           </li>
+          <!--
           <li class="nav-item" role="presentation">
             <button class="nav-link text-light fw-semibold position-relative" id="pills-global-tab" data-bs-toggle="pill" data-bs-target="#pills-global" type="button" role="tab" aria-controls="pills-global" aria-selected="false">Global</button>
-          </li>
+          </li> -->
         </ul>
 
         <div class="tab-content border rounded-3 border-primary p-3 text-white" id="pills-tabContent">

@@ -22,9 +22,13 @@ const auth = getAuth();
 let email;
 let userUuid;
 
+// Activar el fondo borroso
+document.getElementById("pills-personales").classList.add("loading");
+
 // Esperar a que el usuario inicie sesión
 onAuthStateChanged(auth, async (user) => {
     if (user) {
+        document.getElementById("loading").style.display = "block";
         // console.log("Usuario logueado:", user.email);
         email = user.email;
 
@@ -35,6 +39,11 @@ onAuthStateChanged(auth, async (user) => {
 
         cargarEstadisticas(user.email);
         cargarAmigos(userUuid);
+
+        // Ocultar el indicador de carga en caso de error
+        document.getElementById("loading").style.display = "none";
+        // Eliminar el fondo borroso
+        document.getElementById("pills-personales").classList.remove("loading");
     } else {
         Swal.fire({
             icon: "warning",
@@ -45,6 +54,7 @@ onAuthStateChanged(auth, async (user) => {
         });
     }
 });
+
 
 // De primeras metemos el año actual en el datepicker y el mes actual en el select
 const date = new Date();
@@ -230,7 +240,7 @@ document.getElementById("filterFriend").addEventListener("change", (e) => {
 
 
 function generarGraficoPersonal(datos) {
-    console.log("Datos del usuario:", datos);
+
 
     // Verificar si ya existe un gráfico y destruirlo antes de crear uno nuevo
     const oldCanvas = document.getElementById("graficoPersonal");
@@ -352,7 +362,7 @@ function generarGraficoPersonal(datos) {
 }
 
 
-async function cargarRankingGlobal() {
+/* async function cargarRankingGlobal() {
     try {
         const dbRef = ref(db, "mediciones");
         const snapshot = await get(dbRef);
@@ -398,7 +408,7 @@ async function cargarRankingGlobal() {
         console.error("Error al cargar el ranking:", error);
         Swal.fire("Error", "No se pudo cargar el ranking.", "error");
     }
-}
+} */
 
 // Llamar a la función cuando cargue la página
 document.addEventListener("DOMContentLoaded", () => {
@@ -502,6 +512,8 @@ async function cargarEstadisticasAmigo(friendUuid, year, month) {
             const ctx = oldCanvas.getContext("2d");
 
             ctx.clearRect(0, 0, oldCanvas.width, oldCanvas.height);
+
+            generarGraficoAmigo({ gimnasio: 0, batido: 0, descanso: 0, biceps: 0, triceps: 0, espalda: 0, pecho: 0, pierna: 0, hombro: 0, cardio: 0, horasDescanso: 0 });
 
             return;
         }
